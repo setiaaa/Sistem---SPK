@@ -1,0 +1,14 @@
+:root {
+    --primary-100: #ccdffe;
+    --primary-300: #6796fe;
+    --primary-500: #0344fd;
+    --primary-700: #0126b6;
+    --primary-900: #001279;
+}
+#bootstrap-override .form-control {
+    background-color: var(--primary-100);
+}
+
+#bootstrap-override .btn-primary {
+    background-color: var(--primary-500);
+}
