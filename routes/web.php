@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Contents.login');
 });
+Route::get('/login', function () {
+    return view('Contents.login');
+});
