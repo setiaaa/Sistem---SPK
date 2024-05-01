@@ -3,12 +3,71 @@
     --primary-300: #6796fe;
     --primary-500: #0344fd;
     --primary-700: #0126b6;
-    --primary-900: #001279;
+    --primary-900: var(--primary-900, #001279);
+
+    --foreground-text: var(--Foreground-Text, #000000);
 }
-#bootstrap-override .form-control {
-    background-color: var(--primary-100);
+
+#bootstrap-override {
+    font-family: 'Inter', sans-serif;
+}
+
+#bootstrap-override .login-text-1 {
+    color: var(--foreground-Text);
+    font-weight: 600;
+}
+
+#bootstrap-override .login-text-2 {
+    font-weight: 500;
+}
+
+#bootstrap-override .greeting-text-1 {
+    font-weight: 400;
+}
+
+#bootstrap-override .greeting-text-2 {
+    color: var(--primary-500);
+    font-weight: 600;
 }
 
 #bootstrap-override .btn-primary {
     background-color: var(--primary-500);
+}
+
+@media screen and (max-width: 414px) {
+    * {
+        overflow-y: hidden;
+        
+    }
+
+    #bootstrap-override {
+        height: 100%;
+        margin-top: -10%
+    }
+
+    #bootstrap-override .main-container {
+        overflow-y: hidden;
+        height: 100%;
+    }
+
+    #bootstrap-override .main-container .row {
+        overflow-y: hidden;
+        height: 100%;
+    }
+
+    #bootstrap-override .image img {
+        width: 120px;
+    }
+    
+    #bootstrap-override .login-text-1 {
+        font-size: 1.2rem;
+    }
+
+    #bootstrap-override .login-text-2 {
+        font-size: 1rem;
+    }
+
+    #bootstrap-override .login-hero-image {
+        display: none;
+    }
 }

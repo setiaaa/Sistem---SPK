@@ -18,17 +18,17 @@
                 </div>
             </div>
         </div> --}}
-        <div class="w-100 vh-100">
-            <div class="row w-100 h-100">
-                <div class="col-lg-4">
-                    <div class="row align-items-center h-100">
-                        <div class="ps-5 pe-5 pb-5">
+        <div class=" p-0 main-container vw-100 vh-100">
+            <div class="d-flex vw-100 h-100">
+                <div class="login-form col-lg-4 w-100 h-100">
+                    <div class="d-flex flex-column row justify-content-center h-100">
+                        <div class="login-form-container vw-100 ps-5 pe-5 pb-5" >
                             <div class="image mb-3">
                                 <img src="img/logo_percetakan_bandung.svg" width="200px" alt="">
                             </div>
                             <div class="">
-                                <h1 class="h4 text-gray-900 fw-medium">Masuk</h1>
-                                <h1 class="h6 text-gray-500 mb-3">Masuk ke akun Anda</h1>
+                                <h4 class="login-text-1">Masuk</h1>
+                                <h6 class="login-text-2 mb-3">Masuk ke akun Anda</h1>
                             </div>
                             <form class="user">
                                 
@@ -54,10 +54,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 text-center" style="background-color: #F6F6F6">
+                <div class="login-hero-image col-lg-8 text-center">
                     <div class="d-flex flex-column align-items-center justify-content-center container h-100 pt-5">
-                        <h6 class="h6 text-gray-600">Senang melihatmu lagi</h6>
-                        <h1 class="h3 text-gray-900 fw-medium greeting-text" style="color: #0344FD">Selamat datang kembali</h1>
+                        <h6 class="greeting-text-1">Senang melihatmu lagi</h6>
+                        <h3 class="fw-medium greeting-text-2">Selamat datang kembali</h1>
                         <img src="img/printing-invoices-rafiki-1.svg" width="464vw" alt="">
                     </div>
                 </div>
