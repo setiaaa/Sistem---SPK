@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('spknota', function (Blueprint $table) {
             $table->id();
             $table->string('spk_id')->unique();
-            $table->foreign('spk_id')->references('spk_id')->on('spk1');
+            $table->foreign('spk_id')->references('spk_id')->on('spk');
             $table->string('nama_order');
             $table->date('deadline');
             $table->string('lokasi');

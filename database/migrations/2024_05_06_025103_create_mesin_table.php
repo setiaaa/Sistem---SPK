@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spk1', function (Blueprint $table) {
+        Schema::create('mesin', function (Blueprint $table) {
             $table->id();
-            $table->string('spk_id')->unique();
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('order_id')->on('orders');
-            $table->string('status', 32)->notnull();
-            $table->date('tanggal')->notnull();
+            $table->string('id_mesin')->unique();
+            $table->string('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->string('nama_mesin');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spk1');
+        Schema::dropIfExists('mesin');
     }
 };
