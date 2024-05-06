@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MesinController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,3 +43,9 @@ Route::post('/dashboard-tambah-user', [UserController::class, 'store']);
 Route::get('/dashboard-edit-user/{id}', [UserController::class, 'edit']);
 Route::put('/dashboard-edit-user/{id}',[UserController::class, 'update']);
 Route::delete('/dashboard-delete-user/{id}', [UserController::class, 'delete']);
+
+Route::get('/dashboard-mesin', [MesinController::class, 'index']);
+Route::post('/dashboard-tambah-mesin', [MesinController::class, 'store']);
+Route::get('/dashboard-edit-mesin/{id}', [MesinController::class, 'edit']);
+Route::put('/dashboard-edit-mesin/{id}',[MesinController::class, 'update']);
+Route::delete('/dashboard-delete-mesin/{id}', [MesinController::class, 'delete']);

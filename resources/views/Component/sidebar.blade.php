@@ -21,6 +21,10 @@
             <i class="fa fa-user"></i>
             <span>User</span></a>
     </li>
-
+    <li class="nav-item active">
+        <a class="nav-link" href="dashboard-mesin">
+            <i class="fa fa-cog"></i>
+            <span>Mesin</span></a>
+    </li>
 
 </ul>
