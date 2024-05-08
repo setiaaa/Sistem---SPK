@@ -50,7 +50,7 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+                {!! file_get_contents('icons/notification.svg') !!}
                 <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter">3+</span>
             </a>
@@ -101,7 +101,7 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
+                {!! file_get_contents('icons/sms.svg') !!}
                 <!-- Counter - Messages -->
                 <span class="badge badge-danger badge-counter">7</span>
             </a>
@@ -177,21 +177,21 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    {!! file_get_contents('icons/user.svg') !!}
+                    Profil
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
+                    {!! file_get_contents('icons/setting-2.svg') !!}
+                    Pengaturan
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Activity Log
+                    {!! file_get_contents('icons/chart.svg') !!}
+                    Log Aktivitas
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                    {!! file_get_contents('icons/logout.svg') !!}
+                    Keluar
                 </a>
             </div>
         </li>

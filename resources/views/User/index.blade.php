@@ -4,12 +4,12 @@
 
 @section('contents')
 
-            <div class="d-flex align-items-center justify-content-between">
-                <h1 class="mb-0">Data User</h1>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h2 class="mb-0">Data User</h2>
                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#modal-lg">
-                            <i class="fa-solid fa-square-plus"></i> Tambah Data 
-                        </button>
+                    data-target="#modal-lg">
+                    <i class="fa-solid fa-square-plus"></i> Tambah Data 
+                </button>
             </div>
             <div class="card shadow mb-4">
                 <div class="card-body">

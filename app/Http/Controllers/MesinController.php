@@ -18,11 +18,12 @@ class MesinController extends Controller
         $input = $request->all();
         try {
             $input['id_mesin'] = $this->generateMesinId(); // Generate the automatic ID Mesin
-            $input['user_id']=001;
+            $input['user_id']='001';
             Mesin::create($input);
             session()->flash('success', 'Data added successfully.');
             return redirect('dashboard-mesin')->with('success', true);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            console.log($e);
             session()->flash('error', 'Failed to add data.');
             return redirect()->back();
         }
