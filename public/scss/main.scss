@@ -1,0 +1,51 @@
+@import '../css/main.css';
+
+$primary-100: #000;
+$primary-300: var(--primary-300);
+$primary-500: var(--primary-500);
+$primary-700: var(--primary-700);
+$primary-900: var(--primary-900);
+
+$succes-100: var(--succes-100);
+$succes-300: var(--succes-300);
+$succes-500: var(--succes-500);
+$succes-700: var(--succes-700);
+$succes-900: var(--succes-900);
+
+$warning-100: var(--warning-100);
+$warning-300: var(--warning-300);
+$warning-500: var(--warning-500);
+$warning-700: var(--warning-700);
+$warning-900: var(--warning-900);
+
+$danger-100: var(--danger-100);
+$danger-300: var(--danger-300);
+$danger-500: var(--danger-500);
+$danger-700: var(--danger-700);
+$danger-900: var(--danger-900);
+
+:export {
+    primary100: $primary-100;
+    primary300: $primary-300;
+    primary500: $primary-500;
+    primary700: $primary-700;
+    primary900: $primary-900;
+
+    succes100: $succes-100;
+    succes300: $succes-300;
+    succes500: $succes-500;
+    succes700: $succes-700;
+    succes900: $succes-900;
+    
+    warning100: $warning-100;
+    warning300: $warning-300;
+    warning500: $warning-500;
+    warning700: $warning-700;
+    warning900: $warning-900;
+
+    danger100: $danger-100;
+    danger300: $danger-300;
+    danger500: $danger-500;
+    danger700: $danger-700;
+    danger900: $danger-900;
+}

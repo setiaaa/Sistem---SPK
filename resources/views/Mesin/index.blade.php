@@ -4,39 +4,27 @@
 
 @section('contents')
 
-            <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-between mb-3">
                 <h2 class="mb-0">Mesin</h2>
                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#modal-lg">
-                            <i class="fa-solid fa-square-plus"></i> Tambah Data 
-                        </button>
+                    data-target="#modal-lg">
+                    <i class="fa-solid fa-square-plus"></i> Tambah Data 
+                </button>
             </div>
-            <div class="row w-100">
-                <div class="card shadow w-100 mb-4">
-                    <div class="card-header">
-                        <table>
-                            <tbody>
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <b>Data Mesin</b>
-                                    </td>
+                                    <th>No</th>
+                                    <th>ID Mesin</th>
+                                    <th>Nama Mesin</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>ID Mesin</th>
-                                        <th>Nama Mesin</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                </tbody>
-                                <tr>
+                            </thead>
+                        </tbody>
+                            <tr>
                                 <?php $no = 1; ?>
                                 @foreach ($mesin as $msn)
                                     <td>{{ $no++}}</td>

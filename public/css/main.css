@@ -1,37 +1,81 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
 :root {
     --primary-100: #ccdffe;
     --primary-300: #6796fe;
     --primary-500: #0344fd;
     --primary-700: #0126b6;
     --primary-900: var(--primary-900, #001279);
+    
+    --info-100: var(--Info-100, #DDECFE);
+    --info-300: var(--Info-300, #9BBFFB);
+    --info-500: var(--Info-500, #5889F4);
+    --info-700: var(--Info-700, #2C4DAF);
+    --info-900: var(--Info-900, #102375);
 
-    --foreground-text: var(--Foreground-Text, #000000);
+    --success-100: var(--Success-100, #F2FDD1);
+    --success-300: var(--Success-300, #95ED89);
+    --success-500: var(--Success-500, #3AC441);
+    --success-700: var(--Success-700, #1D8D36);
+    --success-900: var(--Success-900, #1D8D36);
+
+    --warning-100: var(--Warning-100, #FED68E);
+    --warning-300: var(--Warning-300, #FFEB7A);
+    --warning-500: var(--Warning-500, #FFD623);
+    --warning-700: var(--Warning-700, #B79211);
+    --warning-900: var(--Warning-900, #7A5B06);
+
+    --danger-100: var(--Danger-100, #FFE5D5);
+    --danger-300: var(--Danger-300, #FF9C82);
+    --danger-500: var(--Danger-500, #FF3730);
+    --danger-700: var(--Danger-700, #B7182D);
+    --danger-900: var(--Danger-900, #7A092B);
+
+    --background-pure: var(--Background-Pure, #F6F6F6);
+    --background-soft: var(--Background-Soft, #EAF0FF);
+    --foreground-text-light: var(--Foreground-Text-Light, #E0E0E0);
+    --foreground-text: var(--Foreground-Text, #1E1E1E);
+    --foreground-text-placeholder: var(--Foreground-Text-Placeholder, #AEAEAE);
+    --foreground-text-soft: var(--Foreground-Text-Soft, #6D6D6D);
+
 }
 
-#bootstrap-override {
+#page-top {
     font-family: 'Inter', sans-serif;
 }
 
-#bootstrap-override .login-text-1 {
-    color: var(--foreground-Text);
-    font-weight: 600;
+#page-top .dropdown-menu {
+    svg{
+        width: 1rem;
+        margin-right: 0.3rem;
+        fill: var(--foreground-text-soft);
+    }
 }
 
-#bootstrap-override .login-text-2 {
-    font-weight: 500;
+#page-top .nav-item {
+    .nav-link {
+        color: var(--foreground-text-soft);
+        font-weight: 500;
+        svg {
+            width: 1rem;
+            margin-right: 0.3rem;
+            fill: var(--foreground-text-soft)
+        };
+    };
 }
 
-#bootstrap-override .greeting-text-1 {
-    font-weight: 400;
+#page-top .nav-item.active {
+    background-color: var(--background-soft);
+    .nav-link {        
+        color: var(--foreground-text);
+        font-weight: 700;
+        svg{ /*target the image with css*/
+            fill: var(--primary-500);
+        }
+    }
 }
 
-#bootstrap-override .greeting-text-2 {
-    color: var(--primary-500);
-    font-weight: 600;
-}
-
-#bootstrap-override .btn-primary {
-    background-color: var(--primary-500);
+#page-top .sticky-footer {
+    bottom: 0;
 }
 
 @media screen and (max-width: 414px) {
@@ -40,34 +84,34 @@
         
     }
 
-    #bootstrap-override {
+    #page-top {
         height: 100%;
         margin-top: -10%
     }
 
-    #bootstrap-override .main-container {
+    #page-top .main-container {
         overflow-y: hidden;
         height: 100%;
     }
 
-    #bootstrap-override .main-container .row {
+    #page-top .main-container .row {
         overflow-y: hidden;
         height: 100%;
     }
 
-    #bootstrap-override .image img {
+    #page-top .image img {
         width: 120px;
     }
     
-    #bootstrap-override .login-text-1 {
+    #page-top .login-text-1 {
         font-size: 1.2rem;
     }
 
-    #bootstrap-override .login-text-2 {
+    #page-top .login-text-2 {
         font-size: 1rem;
     }
 
-    #bootstrap-override .login-hero-image {
+    #page-top .login-hero-image {
         display: none;
     }
 }
