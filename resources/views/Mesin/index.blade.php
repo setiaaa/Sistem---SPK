@@ -5,11 +5,13 @@
 @section('contents')
 
             <div class="d-flex align-items-center justify-content-between mb-3">
-                <h2 class="mb-0">Mesin</h2>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#modal-lg">
-                    <i class="fa-solid fa-square-plus"></i> Tambah Data 
-                </button>
+                <h2 class="mb-0">Data Mesin</h2>
+                @if(auth()->user()->role == "superadmin")
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#modal-lg">
+                        <i class="fa-solid fa-square-plus"></i> Tambah Data 
+                    </button>
+                @endif
             </div>
             <div class="card shadow mb-4">
                 <div class="card-body">
@@ -20,7 +22,9 @@
                                     <th>No</th>
                                     <th>ID Mesin</th>
                                     <th>Nama Mesin</th>
-                                    <th>Aksi</th>
+                                    @if(!auth()->user()->role == "staff")
+                                        <th>Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                         </tbody>
@@ -30,20 +34,22 @@
                                     <td>{{ $no++}}</td>
                                     <td>{{ $msn->id_mesin}}</td>
                                     <td>{{ $msn->nama_mesin}}</td>
-                                    <td>
-                                        <form action="{{ url('dashboard-delete-mesin', $msn->id) }}"
-                                            method="post">
-                                            {{ csrf_field() }}
-                                            {{ method_field('delete') }}
-                                            <a href="{{ 'dashboard-edit-mesin/' . $msn->id}}"
-                                                class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#modal-lg-edit{{ $msn->id}}">
-                                                <i class="fa-solid fa-pencil"></i> Edit</a>
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Are you sure?')"><i
-                                                    class="fa fa-trash"></i> Hapus</button>
-                                        </form>
-                                    </td>
+                                    @if(!auth()->user()->role == "staff")
+                                        <td>
+                                            <form action="{{ url('dashboard-delete-mesin', $msn->id) }}"
+                                                method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
+                                                <a href="{{ 'dashboard-edit-mesin/' . $msn->id}}"
+                                                    class="btn btn-warning btn-sm" data-toggle="modal"
+                                                    data-target="#modal-lg-edit{{ $msn->id}}">
+                                                    <i class="fa-solid fa-pencil"></i> Edit</a>
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure?')"><i
+                                                        class="fa fa-trash"></i> Hapus</button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                                     <!-- Modal Edit -->
                                     <div class="modal fade" id="modal-lg-edit{{ $msn->id }}">
@@ -105,6 +111,9 @@
                 <div class="modal-body">
                     <form action="dashboard-tambah-mesin" method="POST">
                         {{ csrf_field() }}
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="user_id">
+                        </div>
                         <div class="form-group">
                             <label>Nama Mesin</label>
                             <input type="text" class="form-control" placeholder="Nama Mesin" name="nama_mesin">

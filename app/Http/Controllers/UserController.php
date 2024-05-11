@@ -74,5 +74,8 @@ class UserController extends Controller
             return redirect()->back();
         }
     }
+    public function getID(){
+        return $this->user_id;
+    }
 
 }

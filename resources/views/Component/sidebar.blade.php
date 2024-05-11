@@ -29,9 +29,11 @@
             <span>Mesin</span></a>
     </li>
     <li class="nav-item sidebar-specify {{ Request::is('*user') ? 'active' : '' }}">
+        @if(auth()->user()->role == "superadmin")
         <a class="nav-link" href="dashboard-user">
             {!! file_get_contents('icons/profile-2-user.svg') !!}
             <span class="foreground-text-light">User</span></a>
+        @endif
     </li>
 
 </ul>

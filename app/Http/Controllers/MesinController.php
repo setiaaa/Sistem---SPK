@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mesin;
+use App\Models\User;
 
 class MesinController extends Controller
 {
@@ -18,7 +19,6 @@ class MesinController extends Controller
         $input = $request->all();
         try {
             $input['id_mesin'] = $this->generateMesinId(); // Generate the automatic ID Mesin
-            $input['user_id']='001';
             Mesin::create($input);
             session()->flash('success', 'Data added successfully.');
             return redirect('dashboard-mesin')->with('success', true);

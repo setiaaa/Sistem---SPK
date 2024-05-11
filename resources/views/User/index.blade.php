@@ -160,9 +160,9 @@
                             <select class="custom-select rounded-0" name="role" id="role"
                                 aria-label="Default select example" required>
                                 <option value="Tidak Menyebutkan" selected disabled>Pilih Jabatan</option>
-                                <option value="Manajer Produksi">Manajer Produksi</option>
-                                <option value="SPV Produksi">SPV Produksi</option>
-                                <option value="Staff Produksi">Staff Produksi</option>
+                                <option value="superadmin">Manajer Produksi</option>
+                                <option value="admin">SPV Produksi</option>
+                                <option value="staff">Staff Produksi</option>
                             </select>
                         </div>
                         <div class="modal-footer">
