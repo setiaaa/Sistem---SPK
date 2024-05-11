@@ -31,7 +31,6 @@ class OrderController extends Controller
         $input = $request->all();
         try {
             $input['order_id'] = $this->generateOrderId(); // Generate the automatic Order ID
-            $input['user_id'] = '001';
             Order::create($input);
             session()->flash('success', 'Data added successfully.');
             return redirect('dashboard-order')->with('success', true);
