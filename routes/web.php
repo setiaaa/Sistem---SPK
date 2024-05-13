@@ -27,9 +27,9 @@ Route::get('/dashboard', function () {
     return view('contents.dashboard');
 })->name('app');
 
-// Route::post('/login', function () {
-//     return view('login');
-// })->name('login');
+Route::post('/login', function () {
+    return view('login');
+})->name('login');
 
 Route::get('/home', function() {
     return view('home');
