@@ -6,7 +6,7 @@
 
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <h2 class="mb-0">Data Mesin</h2>
-                @if(auth()->user()->role == "superadmin")
+                @if(auth()->user()->role != "staff")
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#modal-lg">
                         <i class="fa-solid fa-square-plus"></i> Tambah Data 
@@ -22,7 +22,7 @@
                                     <th>No</th>
                                     <th>ID Mesin</th>
                                     <th>Nama Mesin</th>
-                                    @if(!auth()->user()->role == "staff")
+                                    @if(auth()->user()->role != "staff")
                                         <th>Aksi</th>
                                     @endif
                                 </tr>
@@ -34,7 +34,7 @@
                                     <td>{{ $no++}}</td>
                                     <td>{{ $msn->id_mesin}}</td>
                                     <td>{{ $msn->nama_mesin}}</td>
-                                    @if(!auth()->user()->role == "staff")
+                                    @if(auth()->user()->role != "staff")
                                         <td>
                                             <form action="{{ url('dashboard-delete-mesin', $msn->id) }}"
                                                 method="post">
@@ -112,7 +112,7 @@
                     <form action="dashboard-tambah-mesin" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="user_id">
+                            <input type="hidden" class="form-control" value="{{Auth::user()->user_id}}" name="user_id">
                         </div>
                         <div class="form-group">
                             <label>Nama Mesin</label>

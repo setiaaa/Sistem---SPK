@@ -6,7 +6,7 @@
 
     <div class="d-flex align-items-center justify-content-between mb-3">
         <h2 class="mb-0">Data Order</h2>
-        @if(!auth()->user()->role == "staff")
+        @if(auth()->user()->role != "staff")
             <button type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#modal-lg">
                 <i class="fa-solid fa-square-plus"></i> Tambah Data 
@@ -24,7 +24,7 @@
                             <th>Nama Order</th>
                             <th>Deadline</th>
                             <th>Lokasi</th>
-                            @if(!auth()->user()->role == "staff")
+                            @if(auth()->user()->role != "staff")
                                 <th>Aksi</th>
                             @endif
                         </tr>
@@ -38,7 +38,7 @@
                         <td>{{ $odr->nama_order}}</td>
                         <td>{{ $odr->deadline}}</td>
                         <td>{{ $odr->lokasi}}</td>
-                        @if(!auth()->user()->role == "staff")
+                        @if(auth()->user()->role != "staff")
                             <td>
                                 <form action="{{ url('dashboard-delete-order', $odr->id) }}"
                                     method="post">
@@ -88,7 +88,7 @@
                                                 <label>Deadline</label>
                                                 <input type="date" class="form-control"
                                                     placeholder="deadline" name="deadline"
-                                                    value="{{ $odr->dealine }}">
+                                                    value="{{ $odr->deadline }}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Lokasi</label>
@@ -130,7 +130,7 @@
             <form action="dashboard-tambah-order" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="user_id">
+                    <input type="hidden" class="form-control" value="{{Auth::user()->user_id}}" name="user_id">
                 </div>
                 <div class="form-group">
                     <label>Nama Order</label>
