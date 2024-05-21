@@ -10,6 +10,7 @@ use App\Http\Middleware\UserRoleMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SPKController;
 
 
 /*
@@ -23,26 +24,37 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('contents.dashboard');
-})->name('app');
+// Route::get('/dashboard', function () {
+//     return view('contents.dashboard');
+// })->name('app');
+
+Route::get('/', function() {
+    return redirect()->route('login');
+});
 
 Route::post('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home');
+// Route::get('/home', function() {
+//     return view('home');
+// })->name('home');
 
+Route::get('/dashboard', [SPKController::class, 'index'], function () {
+    return view('Contents.dashboard.index');
+})->name('dashboard');
+Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
+Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
+Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
+Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
 
 // Route::get('/dashboard', [ChartController::class, 'barChart'])->name('dashboard'); //, function () {
     // return view('Contents.dashboard');
 // })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [ChartController::class, 'barChart'])->name('dashboard');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/dashboard', [SPKController::class, 'index'])->name('dashboard');
+// });
 
 // Route::get('/bar-chart', );
 
