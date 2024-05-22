@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('finishing', function (Blueprint $table) {
             $table->id();
-            $table->string('spk_id')->unique();
+            $table->string('spk_id')->unique()->nullable();
             $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
             $table->string('finishing');
             $table->string('laminasi');
             $table->string('potong_jadi');
             $table->string('keterangan');
+            $table->timestamps();
         });
     }
 
