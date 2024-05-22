@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('bahan', function (Blueprint $table) {
             $table->id();
-            $table->string('spk_id')->unique();
+            $table->string('spk_id')->unique()->nullable();
             $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
             $table->string('nama_bahan');
             $table->string('ukuran_plano');
             $table->string('jumlah_bahan');
             $table->string('ukuran_potong');
             $table->string('satu_plano');
+            $table->timestamps();
         });
     }
 

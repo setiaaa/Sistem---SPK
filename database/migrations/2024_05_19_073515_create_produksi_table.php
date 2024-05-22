@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produk', function (Blueprint $table) {
+        Schema::create('produksi', function (Blueprint $table) {
             $table->id();
-            $table->string('spk_id')->unique();
+            $table->string('spk_id')->unique()->nullable();
             $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
             $table->string('nama_mesin');
             $table->string('cetak');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('tempat_cetak');
             $table->string('acuan_cetak');
             $table->integer('jumlah_order');
+            $table->timestamps();
         });
     }
 
