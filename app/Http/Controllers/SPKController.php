@@ -9,20 +9,43 @@ use App\Models\Produksi;
 use App\Models\Finishing;
 use App\Models\Bahan;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SPKController extends Controller
 {
     public function index(){
-        $data = DB::table('spk')
-                    ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
-                    ->join('orders', 'spk.order_id', '=', 'orders.order_id')
-                    ->join('produksi', 'spk.spk_id', '=', 'produksi.spk_id')
-                    ->join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
-                    ->join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
-                    ->select('spk.*', 'orders.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
-                    ->get();
-        return view('Contents.dashboard', compact('data'));
+        
+        // return view('Contents.dashboard', compact('data'));
+        return $data['spk'] = DB::table('spk')
+        ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
+        ->join('orders', 'spk.order_id', '=', 'orders.order_id')
+        ->join('produksi', 'spk.spk_id', '=', 'produksi.spk_id')
+        ->join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
+        ->join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
+        ->select('spk.*', 'orders.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
+        ->get();
+        
+        return view('Contents.dashboard');
     }
+    public function getData()
+    {
+        // $spk = SPK::select(
+            $spk = 
+            DB::table('spk')
+            ->select(
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('COUNT(*) as count')
+            )
+            ->where('status', '==', 'Done')
+            ->groupBy('month')
+            ->get();
+
+        $labels = json_encode($spk->pluck('month'));
+        $count = json_encode($spk->pluck('count'));
+
+        return (compact('labels', 'count'));
+    }
+
     public function store(Request $request){
         $input = $request->all();
         try{
@@ -96,12 +119,47 @@ class SPKController extends Controller
         try {
             $input = $request->all();
             
-            SPK::find($id)->update($input);
-            SPKMesin::find($id)->update($input);
-            Produksi::find($id)->update($input);
-            Finishing::find($id)->update($input);
-            Bahan::find($id)->update($input);
-
+            // SPK::find($id)->update($input);
+            // SPKMesin::find($id)->update($input);
+            // Produksi::find($id)->update($input);
+            // Finishing::find($id)->update($input);
+            // Bahan::find($id)->update($input);
+            
+            $data = DB::table('spk')
+                ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
+                ->join('orders', 'spk.order_id', '=', 'orders.order_id')
+                ->join('produksi', 'spk.spk_id', '=', 'produksi.spk_id')
+                ->join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
+                ->join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
+                ->where('spk.spk_id', $id)
+                ->update([
+                    'spk.order_id' => $input['order_id'],
+                    'spk.status' => $input['status'],
+                    'spk.tanggal' => $input['tanggal'],
+                    'spkmesin.deadline_produksi' => $input['deadline_produksi'],
+                    'spkmesin.lokasi_produksi' => $input['lokasi_produksi'],
+                    'spkmesin.kirim' => $input['kirim'],
+                    'spkmesin.ekspedisi' => $input['ekspedisi'],
+                    'produksi.nama_mesin' => $input['nama_mesin'],
+                    'produksi.cetak' => $input['cetak'],
+                    'produksi.ukuran_bahan' => $input['ukuran_bahan'],
+                    'produksi.set' => $input['set'],
+                    'produksi.keterangan' => $input['keterangan'],
+                    'produksi.jumlah_cetak' => $input['jumlah_cetak'],
+                    'produksi.hasil_cetak' => $input['hasil_cetak'],
+                    'produksi.tempat_cetak' => $input['tempat_cetak'],
+                    'produksi.acuan_cetak' => $input['acuan_cetak'],
+                    'produksi.jumlah_order' => $input['jumlah_order'],
+                    'finishing.finishing' => $input['finishing'],
+                    'finishing.laminasi' => $input['laminasi'],
+                    'finishing.potong_jadi' => $input['potong_jadi'],
+                    'finishing.keterangan' => $input['keterangan1'],
+                    'bahan.nama_bahan' => $input['nama_bahan'],
+                    'bahan.ukuran_plano' => $input['ukuran_plano'],
+                    'bahan.jumlah_bahan' => $input['jumlah_bahan'],
+                    'bahan.ukuran_potong' => $input['ukuran_potong'],
+                    'bahan.satu_plano' => $input['satu_plano']
+                ]);
             session()->flash('successUpdate', 'Data updated successfully.');
             return redirect('dashboard')->with('successUpdate', true);
         } catch (\Exception $e) {
@@ -120,9 +178,25 @@ class SPKController extends Controller
             Bahan::find($id)        
         ];
         try {
-            $spk->delete($request->all());
+            $data = function() { 
+                DB::table('spk')
+                ->where('spk_id', $id)
+                ->delete();
+                DB::table('bahan')
+                ->where('spk_id', $id)
+                ->delete();
+                DB::table('produksi')
+                ->where('spk_id', $id)
+                ->delete();
+                DB::table('finishing')
+                ->where('spk_id', $id)
+                ->delete();
+                DB::table('spkmesin')
+                ->where('spk_id', $id)
+                ->delete();
+            };
             session()->flash('successDeleted', 'Data deleted successfully.');
-            return redirect('dashboard-mesin')->with('successDeleted', true);
+            return redirect('dashboard')->with('successDeleted', true);
         } catch (\Exception $e) {
             session()->flash('error', 'Failed to delete data.');
             return redirect()->back();

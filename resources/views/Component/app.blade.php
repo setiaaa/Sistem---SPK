@@ -23,10 +23,8 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body id="page-top" style="font-family: 'Inter', sans-serif;">
@@ -122,11 +120,13 @@
 
     <!-- Page level plugins -->
     <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+    
+    
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-    <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script>
+    {{-- <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script> --}}
 </body>
 
 </html>

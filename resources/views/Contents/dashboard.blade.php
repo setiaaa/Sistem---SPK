@@ -5,14 +5,13 @@
 @section('contents')
         <div class="d-flex align-items-center justify-content-between mb-3">
             <h2 class="mb-0">Dashboard</h2>
-            
         </div>
         <div class="row">
             <div class="col-xl-8 col-lg-7">
                 @include('Contents.bar-chart')
             </div>
             <div class="col-xl-4 col-lg-5">
-                @include('Contents.pie-chart')
+                @include('Contents.donut-chart')
             </div>
         </div>
         <div class="card shadow mb-4">
@@ -95,15 +94,26 @@
                                                     <select class="custom-select rounded-0" name="order_id" id="order_id"
                                                         aria-label="Default select example" required>
                                                         <option value="Tidak Menyebutkan" selected disabled>Nama Order</option>
-                                                        <option value="20240520001">Manajer Produksi</option>
-                                                        <option value="20240520002">SPV Produksi</option>
-                                                        <option value="staff">Staff Produksi</option>
+                                                        @foreach ($odr as $order)
+                                                            {{-- <option value="{{ $order->id }}" {{ $spkview->order_id == $order->id ? 'selected' : '' }}>
+                                                                {{ $order->nama_order }} --}}
+                                                            @if($spkview->order_id == $order->order_id)
+                                                                <option value="{{ $order->order_id }}" selected>{{ $order->nama_order }}</option>
+                                                            @else
+                                                                <option value="{{ $order->order_id }}">{{ $order->nama_order }}</option>
+                                                            @endif
+                                                        @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group">    
                                                     <label>Status</label>
-                                                    <input type="text" class="form-control" placeholder="Status" name="status"
-                                                            value="{{ $spkview->status }}">
+                                                    <select class="custom-select rounded-0" name="order_id" id="order_id"
+                                                        aria-label="Default select example" required>
+                                                        <option value="Tidak Menyebutkan" selected disabled>Status</option>
+                                                        <option value="Todo">Todo</option>
+                                                        <option value="Doing">Doing</option>
+                                                        <option value="Done">Done</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Tanggal</label>
@@ -130,11 +140,11 @@
                                                     <input type="text" class="form-control" placeholder="Ekspedisi" name="ekspedisi"
                                                     value="{{ $spkview->ekspedisi }}">
                                                 </div>
-                                                {{-- <div class="form-group">
+                                                <div class="form-group">
                                                     <label>Nama Mesin</label>
                                                     <input type="text" class="form-control" placeholder="Nama Mesin" name="nama_mesin"
                                                     value="{{ $spkview->nama_mesin }}">
-                                                </div> --}}
+                                                </div>
                                                 <div class="form-group">
                                                     <label>Cetak</label>
                                                     <input type="text" class="form-control" placeholder="Cetak" name="cetak"
@@ -152,7 +162,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Keterangan</label>
-                                                    <input type="text" class="form-control" placeholder="Keterangan" name="keterangan"
+                                                    <input type="text" class="form-control" placeholder="Keterangan" name="keterangan1"
                                                     value="{{ $spkview->keterangan }}">
                                                 </div>
                                                 <div class="form-group">
@@ -191,8 +201,8 @@
                                                     value="{{ $spkview->laminasi }}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Potongan Jadi</label>
-                                                    <input type="text" class="form-control" placeholder="Potongan Jadi" name="potong_jadi"
+                                                    <label>Potong Jadi</label>
+                                                    <input type="text" class="form-control" placeholder="Potong Jadi" name="potong_jadi"
                                                     value="{{ $spkview->potong_jadi }}">
                                                 </div>
                                                 <div class="form-group">
@@ -225,14 +235,6 @@
                                                     <input type="text" class="form-control" placeholder="Satu Plano" name="satu_plano"
                                                     value="{{ $spkview->satu_plano }}">
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label>Lokasi</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Lokasi" name="lokasi"
-                                                        value="{{ $spkview->status }}">
-                                                </div>
-                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">Close</button>
@@ -266,18 +268,27 @@
                 <form action="dashboard-tambah-spk" method="POST">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="order_id" class="form-label form-label-sm">Jabatan</label>
+                        <label for="order_id" class="form-label form-label-sm">Nama Order</label>
                         <select class="custom-select rounded-0" name="order_id" id="order_id"
                             aria-label="Default select example" required>
-                            <option value="Tidak Menyebutkan" selected disabled>Pilih Jabatan</option>
-                            <option value="20240520001">Manajer Produksi</option>
+                            <option value="Tidak Menyebutkan" selected disabled>Pilih Order</option>
+                            {{-- <option value="20240520001">Manajer Produksi</option>
                             <option value="admin">SPV Produksi</option>
-                            <option value="staff">Staff Produksi</option>
+                            <option value="staff">Staff Produksi</option> --}}
+                            @foreach ($odr as $order)
+                                <option value="{{ $order->order_id }}">{{ $order->nama_order }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group">    
                         <label>Status</label>
-                        <input type="text" class="form-control" placeholder="Nama Order" name="status">
+                        <select class="custom-select rounded-0" name="order_id" id="order_id"
+                            aria-label="Default select example" required>
+                            <option value="Tidak Menyebutkan" selected disabled>Status</option>
+                            <option value="Todo">Todo</option>
+                            <option value="Doing">Doing</option>
+                            <option value="Done">Done</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Tanggal</label>
