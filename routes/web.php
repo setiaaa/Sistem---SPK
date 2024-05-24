@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SPKController;
+use App\Http\Controllers\SPKandOrderController;
 
 
 /*
@@ -40,13 +41,15 @@ Route::post('/login', function () {
 //     return view('home');
 // })->name('home');
 
-Route::get('/dashboard', [SPKController::class, 'index'], function () {
-    return view('Contents.dashboard.index');
+Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
+    return view('Contents.dashboard');
 })->name('dashboard');
 Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
 Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
 Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
 Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
+// Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
+//     return view(Conten)
 
 // Route::get('/dashboard', [ChartController::class, 'barChart'])->name('dashboard'); //, function () {
     // return view('Contents.dashboard');

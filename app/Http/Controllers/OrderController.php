@@ -14,6 +14,12 @@ class OrderController extends Controller
         $data['order'] = Order::all();
         return view('Order.index', $data);
     }
+    public function spk()
+    {
+        $odr['order'] = Order::all();
+        // return view('Contents.dashboard', $odr);
+        return $odr['order'];
+    }
 
     /**
      * Show the form for creating a new resource.
