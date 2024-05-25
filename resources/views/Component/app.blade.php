@@ -28,6 +28,13 @@
 </head>
 
 <body id="page-top" style="font-family: 'Inter', sans-serif;">
+    <script>
+        const rootStyles = getComputedStyle(document.documentElement);
+        const mainBgColor = rootStyles.getPropertyValue('--primary-500').trim();
+        const success500 = rootStyles.getPropertyValue('--success-500').trim();
+        const info500 = rootStyles.getPropertyValue('--info-500').trim();
+        const warning500 = rootStyles.getPropertyValue('--warning-500').trim();
+    </script>
     @guest
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ route('logout') }}"

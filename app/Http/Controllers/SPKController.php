@@ -14,8 +14,7 @@ use Carbon\Carbon;
 class SPKController extends Controller
 {
     public function index(){
-        
-        // return view('Contents.dashboard', compact('data'));
+        // $search_text = $request->input['query'];
         return $data['spk'] = DB::table('spk')
         ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
         ->join('orders', 'spk.order_id', '=', 'orders.order_id')
@@ -23,27 +22,10 @@ class SPKController extends Controller
         ->join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
         ->join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
         ->select('spk.*', 'orders.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
+        // ->where('spk.nama_order', 'LIKE', '%'.$search_text.'%')
         ->get();
         
         return view('Contents.dashboard');
-    }
-    public function getData()
-    {
-        // $spk = SPK::select(
-            $spk = 
-            DB::table('spk')
-            ->select(
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('COUNT(*) as count')
-            )
-            ->where('status', '==', 'Done')
-            ->groupBy('month')
-            ->get();
-
-        $labels = json_encode($spk->pluck('month'));
-        $count = json_encode($spk->pluck('count'));
-
-        return (compact('labels', 'count'));
     }
 
     public function store(Request $request){
@@ -175,26 +157,14 @@ class SPKController extends Controller
             SPKMesin::find($id),
             Produksi::find($id),
             Finishing::find($id),
-            Bahan::find($id)        
+            Bahan::find($id)
         ];
         try {
-            $data = function() { 
-                DB::table('spk')
-                ->where('spk_id', $id)
-                ->delete();
-                DB::table('bahan')
-                ->where('spk_id', $id)
-                ->delete();
-                DB::table('produksi')
-                ->where('spk_id', $id)
-                ->delete();
-                DB::table('finishing')
-                ->where('spk_id', $id)
-                ->delete();
-                DB::table('spkmesin')
-                ->where('spk_id', $id)
-                ->delete();
-            };
+                Bahan::where('spk_id', $id)->delete();
+                Produksi::where('spk_id', $id)->delete();
+                Finishing::where('spk_id', $id)->delete();
+                SPKMesin::where('spk_id', $id)->delete();
+                SPK::where('spk_id', $id)->delete();
             session()->flash('successDeleted', 'Data deleted successfully.');
             return redirect('dashboard')->with('successDeleted', true);
         } catch (\Exception $e) {
@@ -216,4 +186,5 @@ class SPKController extends Controller
 
         return $generatedId;
     }
+    
 }

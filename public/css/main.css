@@ -54,6 +54,66 @@
     width: 12.2rem;
 }
 
+#page-top .card .card-body {
+    padding: 0.5rem 1rem;
+}
+
+#page-top .btn-primary {
+    background-color: var(--primary-500);
+}
+#page-top {
+    .btn.btn-primary {
+        text-align: center;
+        svg {
+            width: 1.2rem;
+            fill: var(--background-pure);
+        };
+    };
+    .table-responsive {
+        svg{
+            width: 1.2rem;
+            fill: var(--background-pure);
+        };
+    };
+}
+
+#page-top .card-icon-container {
+    .card-count-container {
+        font-size: 1.75rem;
+        font-style: normal;
+        font-weight: 500;
+    }
+    .card-count-container .card-status {
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 300;
+    }
+    svg {
+        width: 5rem;
+    }
+    .card-icon-Todo {
+        svg {
+            fill: var(--warning-500);
+    }}
+    .card-count-container .card-count-Todo {
+        color: var(--warning-500);
+    }
+    .card-icon-Running {
+        svg {
+            fill: var(--success-500);
+    }}
+    .card-count-container .card-count-Running {
+        color: var(--success-500);
+    }
+    .card-icon-Done {   
+        svg {
+            fill: var(--info-500);
+    }}
+    .card-count-container .card-count-Done {
+        color: var(--info-500);
+    }
+}
+
 #bootstrap-override .login-text-1 {
     color: var(--foreground-Text);
     font-weight: 600;
