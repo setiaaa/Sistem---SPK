@@ -1,33 +1,46 @@
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">SPK</h6>
+        <h6 class="m-0 font-weight-bold text-primary">SPK Diselesaikan</h6>
     </div>
     <div class="card-body">
-        <div class="chart-bar">
+        <div class="chart-area">
+            <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand">
+                    <div class=""></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink">
+                    <div class=""></div>
+                </div>
+            </div>
             <canvas id="myBarChart"></canvas>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    // document.addEventListener('DOMContentLoaded', function () {
     fetch('{{ route('dashboard') }}')
         .then(response => response.json())
             var ctx = document.getElementById("myBarChart");
             var myBarChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
-                labels: JSON.parse("<?php echo $barlabels; ?>"),   
+                labels: @json($barlabels),
                 datasets: [{
                 label: "SPK",
-                backgroundColor: "#4e73df",
-                hoverBackgroundColor: "#2e59d9",
+                backgroundColor: "#5889F4",
+                hoverBackgroundColor: "#2C4DAF",
                 borderColor: "#4e73df",
-                data: JSON.parse("<?php echo $barcount; ?>"),
+                data: @json($barcount),
                 }],
             },
             options: {
-                maintainAspectRatio: true,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'bottom',
+                    }
+                },
+                maintainAspectRatio: false,
                 layout: {
                 padding: {
                     left: 10,
@@ -53,7 +66,7 @@
                 yAxes: [{
                     ticks: {
                     min: 0,
-                    max: 15000,
+                    max: 1500,
                     maxTicksLimit: 5,
                     padding: 10,
                     // Include a dollar sign in the ticks
@@ -94,7 +107,4 @@
                 },
             }
             });
-        
-// });
-
 </script>

@@ -7,6 +7,11 @@
             <h2 class="mb-0">Dashboard</h2>
         </div>
         <div class="row">
+            @include('Component.TodoCard')
+            @include('Component.RunningCard')
+            @include('Component.DoneCard')
+        </div>
+        <div class="row">
             <div class="col-xl-8 col-lg-7">
                 @include('Contents.bar-chart')
             </div>
@@ -15,11 +20,10 @@
             </div>
         </div>
         <div class="card shadow mb-4">
-            <div class="d-flex align-items-center justify-content-end mt-4 mr-3 ">
+            <div class="d-flex align-items-center justify-content-end mt-2 mr-3 ">
                 @if(auth()->user()->role != "staff")
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal-lg">
-                        <i class="fa-solid fa-square-plus"></i> Tambah Data 
+                    <button type="button" class="btn btn-primary" data-toggle="modal"data-target="#modal-lg">
+                        {!! file_get_contents('icons/add-square.svg') !!}     Tambah Data 
                     </button>
                 @endif
             </div>
@@ -58,10 +62,10 @@
                                         <a href="{{ 'dashboard-edit-spk/'.$spkview->spk_id}}"
                                             class="btn btn-warning btn-sm" data-toggle="modal"
                                             data-target="#modal-lg-edit{{ $spkview->spk_id}}">
-                                            <i class="fa-solid fa-pencil"></i> Edit</a>
+                                            {!! file_get_contents('icons/edit.svg') !!} Edit</a>
                                         <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure?')"><i
-                                                class="fa fa-trash"></i> Hapus</button>
+                                            onclick="return confirm('Are you sure?')">
+                                            {!! file_get_contents('icons/trash.svg') !!} Hapus</button>
                                     </form>
                                 </td>
                             @endif
@@ -111,7 +115,7 @@
                                                         aria-label="Default select example" required>
                                                         <option value="Tidak Menyebutkan" selected disabled>Status</option>
                                                         <option value="Todo">Todo</option>
-                                                        <option value="Doing">Doing</option>
+                                                        <option value="Running">Running</option>
                                                         <option value="Done">Done</option>
                                                     </select>
                                                 </div>
@@ -282,11 +286,11 @@
                     </div>
                     <div class="form-group">    
                         <label>Status</label>
-                        <select class="custom-select rounded-0" name="order_id" id="order_id"
+                        <select class="custom-select rounded-0" name="status" id="order_id"
                             aria-label="Default select example" required>
                             <option value="Tidak Menyebutkan" selected disabled>Status</option>
                             <option value="Todo">Todo</option>
-                            <option value="Doing">Doing</option>
+                            <option value="Running">Running</option>
                             <option value="Done">Done</option>
                         </select>
                     </div>
