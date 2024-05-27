@@ -13,8 +13,25 @@
                     </button>
                 @endif
             </div>
+            
             <div class="card shadow mb-4">
                 <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <form method="GET" action="/dashboard-mesin" class="d-flex align-items-center">
+                            <label for="per_page" class="me-2">Show:
+                            <select name="per_page" id="per_page" class="form-select form-select-sm me-2" onchange="this.form.submit()">
+                                <option value="5"{{ request('per_page') == 5 ? ' selected' : '' }}>5</option>
+                                <option value="10"{{ request('per_page') == 10 ? ' selected' : '' }}>10</option>
+                                <option value="15"{{ request('per_page') == 15 ? ' selected' : '' }}>15 </option>
+                                <option value="20"{{ request('per_page') == 20 ? ' selected' : '' }}>20</option>
+                            </select>
+                            entries</label>
+                        </form>
+                        <form method="GET" action="/dashboard-mesin" class="d-flex align-items-center">
+                            <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Cari mesin..." value="{{ request('search') }}">
+                            <button class="btn btn-primary btn-sm" type="submit">Cari</button>
+                        </form>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -82,9 +99,8 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save
-                                                                changes</button>
+                                                                data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                         </div>
                                                     </form>
                                             </div>
@@ -94,6 +110,9 @@
                                     </div>
                                 @endforeach
                             </table>
+                            <div>
+                                {{ $mesin->appends(request()->query())->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,8 +138,8 @@
                             <input type="text" class="form-control" placeholder="Nama Mesin" name="nama_mesin">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
