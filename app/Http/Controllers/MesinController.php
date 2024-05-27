@@ -8,10 +8,34 @@ use App\Models\User;
 
 class MesinController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['mesin'] = Mesin::all();
+        // $data['mesin'] = Mesin::all();
+        // $data['mesin'] = Mesin::paginate(5);
+        // $query = User::query();
+
+        // Sorting
+        // if ($request->has('sort') && $request->has('direction')) {
+        //     $sort = $request->input('sort');
+        //     $direction = $request->input('direction');
+        //     $query->orderBy($sort, $direction);
+        // } else {
+        //     // Default sorting
+        //     $query->orderBy('id_mesin', 'asc');
+        // }
+        
+        $perPage = $request->input('per_page',5);
+
+        if($request->has('search')){
+            $data['mesin'] = Mesin::where('id_mesin', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('nama_mesin', 'LIKE', '%' .$request->search. '%')->paginate(10);
+        }
+        else{
+            $data['mesin'] = Mesin::paginate($perPage);
+        }
+
         return view('Mesin.index', $data);
+        
     }
 
     public function store(Request $request)

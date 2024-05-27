@@ -37,7 +37,7 @@
                                 <th>Order ID</th>
                                 <th>Nama Order</th>
                                 <th>Status</th>
-                                <th>Deadline</th>
+                                <th>Tenggat Waktu</th>
                                 @if(auth()->user()->role != "staff")
                                     <th>Aksi</th>
                                 @endif
@@ -125,7 +125,7 @@
                                                             value="{{ $spkview->tanggal }}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Deadline</label>
+                                                    <label>Tenggat Waktu</label>
                                                     <input type="date" class="form-control" placeholder="Deadline" name="deadline_produksi"
                                                     value="{{ $spkview->deadline_produksi }}">
                                                 </div>

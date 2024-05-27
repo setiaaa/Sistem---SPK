@@ -7,9 +7,24 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['users'] = User::all();
+        // $data['users'] = User::all();
+        // $data['users'] = User::paginate(5);
+
+        $perPage = $request->input('per_page',5);
+
+        if($request->has('search')){
+            $data['users'] = User::where('user_id', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('username', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('email', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('namalengkap', 'LIKE', '%' .$request->search. '%')
+            ->paginate(5);
+        }
+        else{
+            $data['users'] = User::paginate($perPage);
+        }
+
         return view('User.index', $data);
     }
 

@@ -9,11 +9,27 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data['order'] = Order::all();
+        // $data['order'] = Order::all();
+        // $data['order'] = Order::paginate(5);
+
+        $perPage = $request->input('per_page',5);
+        
+        if($request->has('search')){
+            $data['order'] = Order::where('order_id', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('nama_order', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('deadline', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('lokasi', 'LIKE', '%' .$request->search. '%')
+            ->paginate(5);
+        }
+        else{
+            $data['order'] = Order::paginate($perPage);
+        }
+
         return view('Order.index', $data);
     }
+
     public function spk()
     {
         $odr['order'] = Order::all();
