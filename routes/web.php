@@ -40,10 +40,15 @@ Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
     Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
         return view('Contents.dashboard');
     })->name('dashboard');
-    Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
+    Route::post('/dashboard-tambah-spk-mesin', [SPKController::class, 'storeSPKMesin']);
     Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
     Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
     Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
+
+    Route::post('/dashboard-tambah-spk-nota', [SPKController::class, 'storeSPKNota']);
+    // Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
+    // Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
+    // Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
 
     // Menu Order
     Route::get('/dashboard-order', [OrderController::class, 'index']);
