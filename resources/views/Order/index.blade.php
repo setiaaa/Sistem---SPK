@@ -36,10 +36,38 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Order ID</th>
-                            <th>Nama Order</th>
-                            <th>Tenggat Waktu</th>
-                            <th>Lokasi</th>
+                            <th>
+                                <a href="{{ ('/dashboard-order') }}?sort=order_id&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Order ID
+                                    @if(request('sort') == 'order_id')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ ('/dashboard-order') }}?sort=nama_order&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Nama Order
+                                    @if(request('sort') == 'nama_order')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ ('/dashboard-order') }}?sort=deadline&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Tenggat Waktu
+                                    @if(request('sort') == 'deadline')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ ('/dashboard-order') }}?sort=lokasi&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Lokasi
+                                    @if(request('sort') == 'lokasi')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
                             @if(auth()->user()->role != "staff")
                                 <th>Aksi</th>
                             @endif

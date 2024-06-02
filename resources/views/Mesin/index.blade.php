@@ -37,8 +37,22 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID Mesin</th>
-                                    <th>Nama Mesin</th>
+                                    <th>
+                                        <a href="{{ ('/dashboard-mesin') }}?sort=id_mesin&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                            ID Mesin
+                                            @if(request('sort') == 'id_mesin')
+                                                <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                            @endif
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a href="{{ ('/dashboard-mesin') }}?sort=nama_mesin&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                            Nama Mesin
+                                            @if(request('sort') == 'nama_mesin')
+                                                <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                            @endif
+                                        </a>
+                                    </th>
                                     @if(auth()->user()->role != "staff")
                                         <th>Aksi</th>
                                     @endif
