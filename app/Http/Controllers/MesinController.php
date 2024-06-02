@@ -10,30 +10,28 @@ class MesinController extends Controller
 {
     public function index(Request $request)
     {
-        // $data['mesin'] = Mesin::all();
-        // $data['mesin'] = Mesin::paginate(5);
-        // $query = User::query();
+        // Mendapatkan parameter sorting dan arah sorting
+        $sort = $request->input('sort', 'id_mesin');
+        $direction = $request->input('direction', 'asc');
+        $perPage = $request->input('per_page', 5);
 
-        // Sorting
-        // if ($request->has('sort') && $request->has('direction')) {
-        //     $sort = $request->input('sort');
-        //     $direction = $request->input('direction');
-        //     $query->orderBy($sort, $direction);
-        // } else {
-        //     // Default sorting
-        //     $query->orderBy('id_mesin', 'asc');
-        // }
-        
-        $perPage = $request->input('per_page',5);
+        // Query dasar untuk model Mesin
+        $query = Mesin::query();
 
-        if($request->has('search')){
-            $data['mesin'] = Mesin::where('id_mesin', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('nama_mesin', 'LIKE', '%' .$request->search. '%')->paginate(10);
-        }
-        else{
-            $data['mesin'] = Mesin::paginate($perPage);
+        // Menambahkan kondisi pencarian jika ada input search
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('id_mesin', 'LIKE', "%{$search}%")
+                ->orWhere('nama_mesin', 'LIKE', "%{$search}%");
         }
 
+        // Menambahkan kondisi sorting
+        $query->orderBy($sort, $direction);
+
+        // Menjalankan query dengan paginasi menggunakan nilai per_page yang diberikan
+        $data['mesin'] = $query->paginate($perPage);
+
+        // Mengirimkan data ke view
         return view('Mesin.index', $data);
         
     }
