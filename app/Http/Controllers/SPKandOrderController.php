@@ -18,7 +18,8 @@ class SPKandOrderController extends Controller
     {
         // Buat instance dari SPKController dan panggil metode index
         $controllerSPK = new SPKController();
-        $spkResult = $controllerSPK->index();
+        $spkMesinResult = $controllerSPK->indexSPKMesin();
+        $spkNotaResult = $controllerSPK->indexSPKNota();
 
         // Buat instance dari OrderController dan panggil metode spk
         $controllerOrder = new OrderController();
@@ -36,7 +37,8 @@ class SPKandOrderController extends Controller
 
         return view('contents.dashboard', [
             'card' => $card,
-            'data' => $spkResult,
+            'dataSPKMesin' => $spkMesinResult,
+            'dataSPKNota' => $spkNotaResult,
             'odr' => $orderResult,
             'barlabels' => $barChart['labels'],
             'barcount' => $barChart['count'],

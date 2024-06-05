@@ -25,7 +25,6 @@ class DonutChartController extends Controller
                         END')
                 )->groupBy('status')
                 ->get();
-        
         $status = $spk->pluck('status');
         $count = $spk->pluck('count');
         $colors = ['#FFD623', '#3AC441', '#5889F4'];

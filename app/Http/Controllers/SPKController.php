@@ -14,34 +14,35 @@ use Carbon\Carbon;
 
 class SPKController extends Controller
 {
-    public function index(){
+    public function indexSPKMesin(){
         // $search_text = $request->input['query'];
-        return $data['spk'] = DB::table(DB::raw(//'spk')
-        // ->join('spknota', 'spk.spk_id', '=', 'spknota.spk_id')
-        // ->Join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
-        // ->Join('produksi', 'spk.spk_id', '=', 'produksi.spk_id')
-        // ->Join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
-        // ->Join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
-        // ->join('orders', 'spk.order_id', '=', 'orders.order_id')
-        // ->select('spk.*', 'orders.*', 'spknota.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
-        // ->get();
-        '
-        spk
-        LEFT JOIN spknota ON spk.spk_id = spknota.spk_id
-        LEFT JOIN orders ON spk.order_id = orders.order_id
-        LEFT JOIN spkmesin ON spk.spk_id = spkmesin.spk_id
-        LEFT JOIN produksi ON spkmesin.spk_id = produksi.spk_id
-        LEFT JOIN finishing ON spkmesin.spk_id = finishing.spk_id
-        LEFT JOIN bahan ON spkmesin.spk_id = bahan.spk_id'))
-        ->select('spk.*', 'orders.*', 'spknota.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
+        return $data['spk'] = DB::table(DB::raw(
+        'spk
+        JOIN orders ON spk.order_id = orders.order_id
+        JOIN spkmesin ON spk.spk_id = spkmesin.spk_id
+        JOIN produksi ON spkmesin.spk_id = produksi.spk_id
+        JOIN finishing ON spkmesin.spk_id = finishing.spk_id
+        JOIN bahan ON spkmesin.spk_id = bahan.spk_id'))
+        ->select('spk.*', 'orders.*', 'spkmesin.*', 'produksi.*', 'finishing.*', 'bahan.*')
         ->get();
-        
-        return $data['spk'];
         // return view('Contents.dashboard');
     }
 
+    public function indexSPKNota(){
+        return $data['spk'] = DB::table(DB::raw(
+            'spk
+            JOIN orders ON spk.order_id = orders.order_id
+            JOIN spknota ON spk.spk_id = spknota.spk_id'))
+            ->select('spk.*', 'orders.*', 'spknota.*')
+            ->get();
+    }
+    public function index(){
+        $data = SPK::all();
+        return $data;
+    }
     public function storeSPKNota(Request $request){
         $input = $request->all();
+        $input['tanggal'] = date('Y-m-d');
         try{
             $input['spk_id'] = $this->generateMesinId(); // Generate the automatic ID SPK
             SPK::create($input);
@@ -59,6 +60,7 @@ class SPKController extends Controller
         $input = $request->all();
         try{
             $input['spk_id'] = $this->generateMesinId(); // Generate the automatic ID SPK
+            $input['tanggal'] = date('Y-m-d');
             // $input['nama_order'] = "Test";
             SPK::create($input);
             SpkMesin::create($input);
@@ -75,63 +77,161 @@ class SPKController extends Controller
     }
     public function edit($id)
     {
-        $data = SPK::find($id);
-        return view('content.user.dashboard-spk-edit', $data);
+        $data['spk'] = [
+            SPK::find($id),
+            SPKNota::find($id),
+            SPKMesin::find($id),
+            Produksi::find($id),
+            Finishing::find($id),
+            Bahan::find($id)];
+            return route('dashboard', compact('data'));
+    }
+    public function editSPKNota($id)
+    {
+        $data['spk'] = [
+            SPK::find($id),
+            SPKNota::find($id),
+        ];
     }
 
     public function update($id, Request $request)
     {
+        // dd($input);
+        $input = $request->all();
+        try {
+            // dd($input);
+            // SPK::find($id)->update([
+            //     'order_id' -> $input['order_id'],
+            //     'status' => $input['status'],
+            //     'tanggal' => $input['tanggal'],
+            //     'deadline_produksi' => $input['deadline_produksi'],
+            //     'lokasi_produksi' => $input['lokasi_produksi']
+            // ]);
+            
+            // dd($input['ekspedisi']);
+            // DB::table('spk')
+            // ->where('spk_id', $id)
+            // ->update(['status' => $input['status']]);
+        
+            // $spkmesin = DB::table('spkmesin')
+            // ->where('spk_id', $id)
+            // ->update(['ekspedisi' => $input['ekspedisi']]);
+            // $spk = SPK::find($id);
+            // $spk->update($input);
+            // $dataSPKMesin = DB::table('spk')
+            // ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
+            // ->whereRaw('spk_id', '=', $id)
+            // ->update([
+            //     'spk.order_id' => $input['order_id'],
+            //     'spk.status' => $input['status'],
+            //     'spk.tanggal' => $input['tanggal'],
+            //     'spk.deadline_produksi' => $input['deadline_produksi'],
+            //     'spk.lokasi_produksi' => $input['lokasi_produksi'],
+            //     'spkmesin.kirim' => $input['kirim'],
+            //     'spkmesin.ekspedisi' => $input['ekspedisi']
+            // ]);
+            
+            // $data = DB::table('spk')
+            // ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
+            // ->join('produksi', 'spkmesin.spk_id', '=', 'produksi.spk_id')
+            // ->join('finishing', 'spkmesin.spk_id', '=', 'finishing.spk_id')
+            // ->join('bahan', 'spkmesin.spk_id', '=', 'bahan.spk_id')
+            // ->where('spk.spk_id', 'SPK-001')
+            // ->update([
+            //     'spk.status' => $input['status'],
+            //     'spkmesin.ekspedisi' => $input['ekspedisi']
+            
+                // 'spk.order_id' => $input['order_id'],
+                // 'spk.status' => $input['status'],
+                // 'spk.tanggal' => $input['tanggal'],
+                // 'spk.deadline_produksi' => $input['deadline_produksi'],
+                // 'spk.lokasi_produksi' => $input['lokasi_produksi'],
+                // 'spkmesin.kirim' => $input['kirim'],
+                // 'spkmesin.ekspedisi' => $input['ekspedisi'],
+                // 'produksi.nama_mesin' => $input['nama_mesin'],
+                // 'produksi.cetak' => $input['cetak'],
+                // 'produksi.ukuran_bahan' => $input['ukuran_bahan'],
+                // 'produksi.set' => $input['set'],
+                // 'produksi.keterangan' => $input['keterangan'],
+                // 'produksi.jumlah_cetak' => $input['jumlah_cetak'],
+                // 'produksi.hasil_cetak' => $input['hasil_cetak'],
+                // 'produksi.tempat_cetak' => $input['tempat_cetak'],
+                // 'produksi.acuan_cetak' => $input['acuan_cetak'],
+                // 'produksi.jumlah_order' => $input['jumlah_order'],
+                // 'finishing.finishing' => $input['finishing'],
+                // 'finishing.laminasi' => $input['laminasi'],
+                // 'finishing.potong_jadi' => $input['potong_jadi'],
+                // 'finishing.keterangan' => $input['keterangan1'],
+                // 'bahan.nama_bahan' => $input['nama_bahan'],
+                // 'bahan.ukuran_plano' => $input['ukuran_plano'],
+                // 'bahan.jumlah_bahan' => $input['jumlah_bahan'],
+                // 'bahan.ukuran_potong' => $input['ukuran_potong'],
+                // 'bahan.satu_plano' => $input['satu_plano']
+            // ]);
+            // $input = $request->all();
+            // dd($input);
+            // DB::table('spk')
+            // ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
+            // SPKMesin::find($id)->update($input);
+            // SPKNota::find($id)->update($input);
+            // Produksi::find($id)->update($input);
+            // Finishing::find($id)->update($input);
+            // Bahan::find($id)->update($input);
+            // dd($spk)
+            // $spk->update($input);
+            // $spkmesin->update($input);
+            // $spknota->update($input);
+            // $produksi->update($input);
+            // $finishing->update($input);
+            // $bahan->update($input);
+                // dd($data);
+                $query = "
+                UPDATE spk
+                JOIN spkmesin ON spk.spk_id = spkmesin.spk_id
+                JOIN produksi ON spkmesin.spk_id = produksi.spk_id
+                JOIN finishing ON spkmesin.spk_id = finishing.spk_id
+                JOIN bahan ON spkmesin.spk_id = bahan.spk_id
+                SET 
+                    spk.status = ?,
+                    spkmesin.ekspedisi = ?
+                WHERE spk.spk_id = ?
+            ";
+
+        
+            DB::statement($query, [$input['status'], $input['ekspedisi'], $id]);
+            session()->flash('successUpdate', 'Data updated successfully.');
+            return redirect('dashboard')->with('successUpdate', true);
+        } catch (\Exception $e) {
+            session()->flash('error', 'Failed to update data.');
+            return redirect()->back();
+        }
+    }public function updateSPKNota($id, Request $request)
+    {
         try {
             $input = $request->all();
-            $data = DB::table('spk')
-            ->join('spknota', 'spk.spk_id', '=', 'spknota.spk_id')
-            ->join('spkmesin', 'spk.spk_id', '=', 'spkmesin.spk_id')
-            ->join('orders', 'spk.order_id', '=', 'orders.order_id')
-            ->join('produksi', 'spk.spk_id', '=', 'produksi.spk_id')
-            ->join('finishing', 'spk.spk_id', '=', 'finishing.spk_id')
-            ->join('bahan', 'spk.spk_id', '=', 'bahan.spk_id')
-            ->where('spk.spk_id', $id)
-            ->update([
-                'spk.order_id' => $input['order_id'],
-                'spk.status' => $input['status'],
-                'spk.tanggal' => $input['tanggal'],
-                'spk.deadline_produksi' => $input['deadline_produksi'],
-                'spk.lokasi_produksi' => $input['lokasi_produksi'],
-                'spk.lokasi_produksi' => $input['lokasi_produksi'],
-                'spknota.nama_bahan' => $input['nama_bahan'],
-                'spknota.tebal_bahan' => $input['tebal_bahan'],
-                'spknota.ukuran_bahan' => $input['ukuran_bahan'],
-                'spknota.jumlah_cetak' => $input['jumlah_cetak'],
-                'spknota.ukuran_jadi' => $input['ukuran_jadi'],
-                'spknota.rangkap' => $input['rangkap'],
-                'spknota.warna_rangkap' => $input['warna_rangkap'],
-                'spknota.cetak' => $input['cetak'],
-                'spknota.warna' => $input['warna'],
-                'spknota.finishing' => $input['finishing'],
-                'spknota.numerator' => $input['numerator'],
-                'spknota.keterangan ' => $input['keterangan'],
-                'spkmesin.kirim' => $input['kirim'],
-                'spkmesin.ekspedisi' => $input['ekspedisi'],
-                'produksi.nama_mesin' => $input['nama_mesin'],
-                'produksi.cetak' => $input['cetak'],
-                'produksi.ukuran_bahan' => $input['ukuran_bahan'],
-                'produksi.set' => $input['set'],
-                'produksi.keterangan' => $input['keterangan'],
-                'produksi.jumlah_cetak' => $input['jumlah_cetak'],
-                'produksi.hasil_cetak' => $input['hasil_cetak'],
-                'produksi.tempat_cetak' => $input['tempat_cetak'],
-                'produksi.acuan_cetak' => $input['acuan_cetak'],
-                'produksi.jumlah_order' => $input['jumlah_order'],
-                'finishing.finishing' => $input['finishing'],
-                'finishing.laminasi' => $input['laminasi'],
-                'finishing.potong_jadi' => $input['potong_jadi'],
-                'finishing.keterangan' => $input['keterangan1'],
-                'bahan.nama_bahan' => $input['nama_bahan'],
-                'bahan.ukuran_plano' => $input['ukuran_plano'],
-                'bahan.jumlah_bahan' => $input['jumlah_bahan'],
-                'bahan.ukuran_potong' => $input['ukuran_potong'],
-                'bahan.satu_plano' => $input['satu_plano']
-            ]);
+            // $data = DB::table('spk')
+            // ->join('spknota', 'spk.spk_id', '=', 'spknota.spk_id')
+            // ->where('spk.spk_id', $id)
+            // ->update([
+            //     'spk.order_id' => $input['order_id'],
+            //     'spk.status' => $input['status'],
+            //     'spk.tanggal' => $input['tanggal'],
+            //     'spk.deadline_produksi' => $input['deadline_produksi'],
+            //     'spk.lokasi_produksi' => $input['lokasi_produksi'],
+            //     'spk.lokasi_produksi' => $input['lokasi_produksi'],
+            //     'spknota.nama_bahan' => $input['nama_bahan'],
+            //     'spknota.tebal_bahan' => $input['tebal_bahan'],
+            //     'spknota.ukuran_bahan' => $input['ukuran_bahan'],
+            //     'spknota.jumlah_cetak' => $input['jumlah_cetak'],
+            //     'spknota.ukuran_jadi' => $input['ukuran_jadi'],
+            //     'spknota.rangkap' => $input['rangkap'],
+            //     'spknota.warna_rangkap' => $input['warna_rangkap'],
+            //     'spknota.cetak' => $input['cetak'],
+            //     'spknota.warna' => $input['warna'],
+            //     'spknota.finishing' => $input['finishing'],
+            //     'spknota.numerator' => $input['numerator'],
+            //     'spknota.keterangan ' => $input['keterangan']
+            // ]);
             
             session()->flash('successUpdate', 'Data updated successfully.');
             return redirect('dashboard')->with('successUpdate', true);
