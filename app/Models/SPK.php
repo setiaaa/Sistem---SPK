@@ -12,9 +12,10 @@ class SPK extends Model
     protected $fillable = [
         'spk_id',
         'order_id',
-        // 'nama_order',
         'status',
-        'tanggal'
+        'tanggal',
+        'deadline_produksi',
+        'lokasi_produksi'
     ];
     protected $table = 'spk';
 }

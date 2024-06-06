@@ -2,9 +2,9 @@
     <div class="card shadow h-100 py-2">
         <div class="card-body">
             <div class="card-icon-container row no-gutters align-items-center">
-                @if (!empty($card) && isset($card[2]))
+                @if (!empty($card) && isset($card[2]) && $card[2]->status == 'Done')
                     <div class="col mr-2 card-icon-{{ $card[2]->status }}" id="">
-                            {!! file_get_contents('icons/status-up.svg') !!}
+                        {!! file_get_contents('icons/status-up.svg') !!}
                     </div>
                     <div class="card-count-container col">
                         <div class="card-count-{{ $card[2]->status }}" class="mb-0">
@@ -13,11 +13,11 @@
                         <div class="card-status" class="text-xs text-uppercase mb-1">{{ $card[2]->status }}</div>
                     </div>
                 @else
-                    <div class="col mr-2 card-icon" id="">
+                    <div class="col mr-2 card-icon-Done" id="">
                         {!! file_get_contents('icons/status-up.svg') !!}
                     </div>
                     <div class="card-count-container col">
-                        <div class="card-count" class="mb-0">0</div>
+                        <div class="card-count-Done" class="mb-0">0</div>
                         <div class="card-status" class="text-xs text-uppercase mb-1">Done</div>
                     </div>
                 @endif

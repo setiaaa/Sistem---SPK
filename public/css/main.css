@@ -76,6 +76,91 @@
         };
     };
 }
+ #page-top {
+        .tab-menu-button-container {
+            align-self: stretch;
+            border-radius: 0.8rem;
+            background-color: var(--background-soft);
+            align-items: flex-start;
+            padding: 4px;
+            gap: 8px;
+            
+        } 
+
+        .tab-button-active {
+            background-color: var(--primary-500);
+            color: white;
+            transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.2s;
+        }
+
+        .tab-button {
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .spkmesin-wrapper {
+            flex: 1;
+            padding: 6px 12px;
+        }
+        .spknota-wrapper {
+            flex: 1;
+            padding: 6px 12px;
+        }
+
+        .radio-button-container {
+            gap: 0.4rem;
+            margin: 0;
+        }
+
+        .button {
+            height: 2rem;
+            position: relative;
+        }
+
+        .button label,
+        .button input {
+            display: block;
+            position: absolute;
+            font-size: 0.8rem;
+            text-wrap: nowrap;
+            width: 100%;
+            border: var(--foreground-text-placeholder) solid 0.05rem;
+        }
+        /* Radio */
+        .button input[type="radio"] {
+            z-index: 100;
+            opacity: 0;
+            /* border-radius: 0.4rem;
+            width: 100%; */
+        }
+        .button input[type="radio"]:checked + label {
+            background: var(--primary-500);
+            color: #fff;
+        }
+        /* Checkbox */
+        .button input[type="checkbox"] {
+            z-index: 100;
+            opacity: 0;
+            /* border-radius: 0.4rem;
+            width: 100%; */
+        }
+        .button input[type="checkbox"]:checked + label {
+            background: var(--primary-500);
+            color: #fff;
+        }
+
+        .button label {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            z-index: 90;
+            text-align: center;
+            /* line-height: 1.8em; */
+        }
+    }
 
 #page-top .card-icon-container {
     .card-count-container {
