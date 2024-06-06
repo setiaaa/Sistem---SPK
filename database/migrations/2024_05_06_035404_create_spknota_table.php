@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('spk_id')->unique();
             $table->foreign('spk_id')->references('spk_id')->on('spk');
-            $table->string('nama_order');
-            $table->date('deadline');
-            $table->string('lokasi');
             $table->string('nama_bahan');
             $table->string('tebal_bahan');
             $table->string('ukuran');

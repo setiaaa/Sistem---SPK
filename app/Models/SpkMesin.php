@@ -14,8 +14,6 @@ class SpkMesin extends Model
         // 'order_id',
         // 'mesin_id',
         // 'nama_order',
-        'deadline_produksi',
-        'lokasi_produksi',
         'kirim',
         'ekspedisi'
     ];

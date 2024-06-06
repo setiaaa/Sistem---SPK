@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign('order_id')->references('order_id')->on('orders');
             $table->string('status', 32)->notnull();
             $table->date('tanggal')->notnull();
+            $table->date('deadline_produksi');
+            $table->string('lokasi_produksi');
             $table->timestamps();
         });
     }
