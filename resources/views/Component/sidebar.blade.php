@@ -3,7 +3,7 @@
 
 <ul class="navbar-nav sidebar primary accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
         <div class="image mt-5">
             <img src="img/logo_percetakan_bandung.svg" width="85%" alt="">
         </div>
