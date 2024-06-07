@@ -25,9 +25,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body id="page-top" style="font-family: 'Inter', sans-serif;">
+<body
+ 
+    id="page-top" style="font-family: 'Inter', sans-serif;">
     <script>
         const rootStyles = getComputedStyle(document.documentElement);
         const mainBgColor = rootStyles.getPropertyValue('--primary-500').trim();

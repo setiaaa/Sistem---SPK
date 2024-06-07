@@ -11,22 +11,30 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        // $data['order'] = Order::all();
-        // $data['order'] = Order::paginate(5);
+        // Mendapatkan parameter sorting dan arah sorting
+        $sort = $request->input('sort', 'order_id');
+        $direction = $request->input('direction', 'asc');
+        $perPage = $request->input('per_page', 5);
 
-        $perPage = $request->input('per_page',5);
-        
-        if($request->has('search')){
-            $data['order'] = Order::where('order_id', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('nama_order', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('deadline', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('lokasi', 'LIKE', '%' .$request->search. '%')
-            ->paginate(5);
-        }
-        else{
-            $data['order'] = Order::paginate($perPage);
+        // Query dasar untuk model Mesin
+        $query = Order::query();
+
+        // Menambahkan kondisi pencarian jika ada input search
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('order_id', 'LIKE', "%{$search}%")
+                ->orWhere('nama_order', 'LIKE', '%' .$request->search. '%')
+                ->orWhere('deadline', 'LIKE', '%' .$request->search. '%')
+                ->orWhere('lokasi', 'LIKE', '%' .$request->search. '%');
         }
 
+        // Menambahkan kondisi sorting
+        $query->orderBy($sort, $direction);
+
+        // Menjalankan query dengan paginasi menggunakan nilai per_page yang diberikan
+        $data['order'] = $query->paginate($perPage);
+
+        // Mengirimkan data ke view
         return view('Order.index', $data);
     }
 

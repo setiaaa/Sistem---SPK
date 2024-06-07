@@ -9,22 +9,31 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        // $data['users'] = User::all();
-        // $data['users'] = User::paginate(5);
+        // Mendapatkan parameter sorting dan arah sorting
+        $sort = $request->input('sort', 'user_id');
+        $direction = $request->input('direction', 'asc');
+        $perPage = $request->input('per_page', 5);
 
-        $perPage = $request->input('per_page',5);
+        // Query dasar untuk model User
+        $query = User::query();
 
-        if($request->has('search')){
-            $data['users'] = User::where('user_id', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('username', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('email', 'LIKE', '%' .$request->search. '%')
-            ->orWhere('namalengkap', 'LIKE', '%' .$request->search. '%')
-            ->paginate(5);
+        // Menambahkan kondisi pencarian jika ada input search
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('user_id', 'LIKE', "%{$search}%")
+                ->orWhere('username', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', '%' .$request->search. '%')
+                ->orWhere('namalengkap', 'LIKE', '%' .$request->search. '%')
+                ->orWhere('role', 'LIKE', '%' .$request->search. '%');
         }
-        else{
-            $data['users'] = User::paginate($perPage);
-        }
 
+        // Menambahkan kondisi sorting
+        $query->orderBy($sort, $direction);
+
+        // Menjalankan query dengan paginasi menggunakan nilai per_page yang diberikan
+        $data['users'] = $query->paginate($perPage);
+
+        // Mengirimkan data ke view
         return view('User.index', $data);
     }
 
