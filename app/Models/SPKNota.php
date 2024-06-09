@@ -25,5 +25,7 @@ class SPKNota extends Model
         'keterangan'
     ];
     protected $table = 'spknota';
-
+    public function spk(){
+        return $this->belongsTo(SPK::class, 'spk_id', 'spk_id');
+    }
 }

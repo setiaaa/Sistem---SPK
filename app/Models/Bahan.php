@@ -19,4 +19,8 @@ class Bahan extends Model
     ];
 
     protected $table = 'bahan';
+
+    function SpkMesin() {
+        return $this->belongsTo(SPKMesin::class, 'spk_id', 'spk_id');
+    }
 }

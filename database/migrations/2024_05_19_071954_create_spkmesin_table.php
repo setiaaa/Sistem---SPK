@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('kirim');
             $table->string('ekspedisi');
             $table->timestamps();
+
+            $table->foreign('spk_id')->references('spk_id')->on('spk')->onDelete('cascade');
         });
     }
 

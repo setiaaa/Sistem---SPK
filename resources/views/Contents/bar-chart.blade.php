@@ -21,7 +21,7 @@
         .then(response => response.json())
             var ctx = document.getElementById("myBarChart");
             var myBarChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: @json($barlabels),
                 datasets: [{

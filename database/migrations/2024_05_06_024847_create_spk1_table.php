@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('spk_id')->unique();
             $table->unsignedBigInteger('order_id');
+            $table->string('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('order_id')->references('order_id')->on('orders');
             $table->string('status', 32)->notnull();
             $table->date('tanggal')->notnull();

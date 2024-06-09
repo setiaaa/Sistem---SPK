@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('spknota', function (Blueprint $table) {
             $table->id();
-            $table->string('spk_id')->unique();
-            $table->foreign('spk_id')->references('spk_id')->on('spk');
+            $table->string('spk_id')->unique()->nullable();
             $table->string('nama_bahan');
             $table->string('tebal_bahan');
             $table->string('ukuran');
@@ -28,6 +27,8 @@ return new class extends Migration
             $table->integer('numerator');
             $table->string('keterangan');
             $table->timestamps();
+
+            $table->foreign('spk_id')->references('spk_id')->on('spk')->onDelete('cascade');
         });
     }
 
