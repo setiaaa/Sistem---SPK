@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('produksi', function (Blueprint $table) {
             $table->id();
             $table->string('spk_id')->unique()->nullable();
-            $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
+            // $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
             $table->string('nama_mesin');
             $table->string('cetak');
             $table->string('ukuran_bahan');
@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('acuan_cetak');
             $table->integer('jumlah_order');
             $table->timestamps();
+
+            $table->foreign('spk_id')->references('spk_id')->on('spkmesin')->onDelete('cascade');
         });
     }
 

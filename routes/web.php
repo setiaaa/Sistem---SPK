@@ -33,7 +33,7 @@ Route::post('/login', function () {
     return view('login');
 })->name('login');
 
-Auth::routes();
+Auth::routes('errros.404');
 
 Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
     // Dashboard
@@ -41,38 +41,30 @@ Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
         return view('Contents.dashboard');
     })->name('dashboard');
     Route::post('/dashboard-tambah-spk-mesin', [SPKController::class, 'storeSPKMesin']);
-    // Route::get('/dashboard-edit-spk-mesin/{id}', [SPKController::class, 'editSPKMesin']);
-    // Route::put('/dashboard-edit-spk-mesin/{id}', [SPKController::class, 'updateSPKMesin']);
-    // Route::get('/dashboard-edit-spk-nota/{id}', [SPKController::class, 'editSPKNota']);
-    // Route::put('/dashboard-edit-spk-nota/{id}', [SPKController::class, 'updateSPKNota']);
-    Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
-    Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
-    Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
-
     Route::post('/dashboard-tambah-spk-nota', [SPKController::class, 'storeSPKNota']);
-    // Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
-    // Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
-    // Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
+    Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
+    Route::PUT('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
+    Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
 
     // Menu Order
     Route::get('/dashboard-order', [OrderController::class, 'index']);
     Route::post('/dashboard-tambah-order', [OrderController::class, 'store']);
     Route::get('/dashboard-edit-order/{id}', [OrderController::class, 'edit']);
-    Route::put('/dashboard-edit-order/{id}',[OrderController::class, 'update']);
+    Route::PUT('/dashboard-edit-order/{id}',[OrderController::class, 'update']);
     Route::delete('/dashboard-delete-order/{id}', [OrderController::class, 'delete']);
 
     // Menu Mesin
     Route::get('/dashboard-mesin', [MesinController::class, 'index']);
     Route::post('/dashboard-tambah-mesin', [MesinController::class, 'store']);
     Route::get('/dashboard-edit-mesin/{id}', [MesinController::class, 'edit']);
-    Route::put('/dashboard-edit-mesin/{id}',[MesinController::class, 'update']);
+    Route::PUT('/dashboard-edit-mesin/{id}',[MesinController::class, 'update']);
     Route::delete('/dashboard-delete-mesin/{id}', [MesinController::class, 'delete']);
 
     // Menu User
     Route::get('/dashboard-user', [UserController::class, 'index']); 
     Route::post('/dashboard-tambah-user', [UserController::class, 'store']);
     Route::get('/dashboard-edit-user/{id}', [UserController::class, 'edit']);
-    Route::put('/dashboard-edit-user/{id}',[UserController::class, 'update']);
+    Route::PUT('/dashboard-edit-user/{id}',[UserController::class, 'update']);
     Route::delete('/dashboard-delete-user/{id}', [UserController::class, 'delete']);
 });
 
@@ -83,20 +75,20 @@ Route::group(['middleware' => 'auth', 'user-role:admin'], function () {
     })->name('dashboard');
     Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
     Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
-    Route::put('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
+    Route::PUT('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
     Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
 
     // Menu Order
     Route::get('/dashboard-order', [OrderController::class, 'index']);
     Route::post('/dashboard-tambah-order', [OrderController::class, 'store']);
     Route::get('/dashboard-edit-order/{id}', [OrderController::class, 'edit']);
-    Route::put('/dashboard-edit-order/{id}',[OrderController::class, 'update']);
+    Route::PUT('/dashboard-edit-order/{id}',[OrderController::class, 'update']);
     Route::delete('/dashboard-delete-order/{id}', [OrderController::class, 'delete']);
 
     // Menu Mesin
     Route::get('/dashboard-mesin', [MesinController::class, 'index']);
     Route::post('/dashboard-tambah-mesin', [MesinController::class, 'store']);
     Route::get('/dashboard-edit-mesin/{id}', [MesinController::class, 'edit']);
-    Route::put('/dashboard-edit-mesin/{id}',[MesinController::class, 'update']);
+    Route::PUT('/dashboard-edit-mesin/{id}',[MesinController::class, 'update']);
     Route::delete('/dashboard-delete-mesin/{id}', [MesinController::class, 'delete']);
 });

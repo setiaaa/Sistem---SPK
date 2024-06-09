@@ -125,7 +125,7 @@
                                             <div class="form-group">
                                                 <label>Nama Order</label>
                                                 <input type="text" class="form-control"
-                                                    placeholder="Nama Order" name="namaorder"
+                                                    placeholder="Nama Order" name="nama_order"
                                                     value="{{ $odr->nama_order }}">
                                             </div>
                                             <div class="form-group">

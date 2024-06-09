@@ -18,12 +18,15 @@ class SPKandOrderController extends Controller
     {
         // Buat instance dari SPKController dan panggil metode index
         $controllerSPK = new SPKController();
-        $spkMesinResult = $controllerSPK->indexSPKMesin();
-        $spkNotaResult = $controllerSPK->indexSPKNota();
+        $spk = $controllerSPK->index()->getData()->spk;
 
         // Buat instance dari OrderController dan panggil metode spk
         $controllerOrder = new OrderController();
         $orderResult = $controllerOrder->spk();
+
+        // Buat instance dari MesinController dan panggil metode index
+        $controllerMesin = new MesinController();
+        $mesinResult = $controllerMesin->spk();
 
         // Buat instance dari CardController dan panggil metode getData()
         $cards = new CardController();
@@ -34,12 +37,12 @@ class SPKandOrderController extends Controller
         $barChart = $barChartController->getData();
         $donutChartController = new DonutChartController();
         $donutChart = $donutChartController->getData();
-
+        
         return view('contents.dashboard', [
             'card' => $card,
-            'dataSPKMesin' => $spkMesinResult,
-            'dataSPKNota' => $spkNotaResult,
+            'SPK' => $spk,
             'odr' => $orderResult,
+            'msn' => $mesinResult,
             'barlabels' => $barChart['labels'],
             'barcount' => $barChart['count'],
             'donutstatus' => $donutChart['status'],

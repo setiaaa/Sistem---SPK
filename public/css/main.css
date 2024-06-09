@@ -61,6 +61,13 @@
 #page-top .btn-primary {
     background-color: var(--primary-500);
 }
+#notfound .btn-primary {
+    background-color: var(--primary-500);
+}
+#notfound .btn-primary:hover {
+    background-color: var(--primary-700);
+}
+
 #page-top {
     .btn.btn-primary {
         text-align: center;
@@ -257,12 +264,72 @@
     }
 }
 
-
 #page-top .sticky-footer {
     bottom: 0;
 }
 
-@media screen and (max-width: 414px) {
+#page-top .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+
+#notfound {
+    position: relative;
+    height: 100vh
+}
+
+#notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+
+.notfound {
+    max-width: 520px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center
+}
+.notfound svg {
+    width: 20rem;
+    fill: var(--primary-500);
+}
+
+.notfound .title {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #000;
+}
+
+@media only screen and (max-width: 767px) {
+    .notfound svg {
+        width: 12rem;
+    }
+    .notfound .title {
+        font-size: 1.2rem;
+    } 
+    .notfound .content {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .notfound .title {
+        font-size: 0.8rem
+    }
+    .notfound .content {
+        font-size: 0.5rem;
+    }
+
     * {
         overflow-y: hidden;
         
