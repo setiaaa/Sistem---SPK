@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produksi extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [
         'spk_id',
-        'nama_mesin',
+        'id_mesin',
         'cetak',
         'ukuran_bahan',
         'set',
@@ -23,4 +24,11 @@ class Produksi extends Model
         'jumlah_order'
     ];
     protected $table = 'produksi';
+    // protected $casts = [
+    //     'cetak' => 'array'
+    // ];
+
+    function SpkMesin() {
+        return $this->belongsTo(SPKMesin::class, 'spk_id', 'spk_id');
+    }
 }

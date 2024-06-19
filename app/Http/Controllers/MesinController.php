@@ -36,6 +36,13 @@ class MesinController extends Controller
         
     }
 
+    public function spk()
+    {
+        $odr['order'] = Mesin::all();
+        // return view('Contents.dashboard', $odr);
+        return $odr['order'];
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();

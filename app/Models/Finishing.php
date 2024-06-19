@@ -17,4 +17,8 @@ class Finishing extends Model
         'keterangan',
     ];
     protected $table = 'finishing';
+
+    function SpkMesin() {
+        return $this->belongsTo(SPKMesin::class, 'spk_id', 'spk_id');
+    }
 }

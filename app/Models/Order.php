@@ -16,4 +16,9 @@ class Order extends Model
         'deadline',
         'lokasi'
     ];
+    protected $table = 'orders';
+
+    public function spk(){
+        return $this->hasMany(SPK::class, 'order_id', 'order_id');
+    }
 }
