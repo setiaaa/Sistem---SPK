@@ -1,12 +1,9 @@
 @extends('Component.app')
 
-@section('Dashboard')
+@section('title', 'Dashboard')
 
 @section('contents')
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h2 class="mb-0">Dashboard</h2>
-    </div>
-    <div class="row">
+    <div class="row mt-3">
         @include('Component.TodoCard')
         @include('Component.RunningCard')
         @include('Component.DoneCard')
@@ -877,7 +874,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Cetak</label>
-                                <input type="text" class="form-control" placeholder="Cetak" name="cetak[]">
+                                <input type="text" class="form-control" placeholder="Cetak" name="cetak">
                             </div>
                             <div class="form-group">
                                 <label>Warna</label>

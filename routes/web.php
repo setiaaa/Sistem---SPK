@@ -33,9 +33,15 @@ Route::post('/login', function () {
     return view('login');
 })->name('login');
 
-Auth::routes('errros.404');
+Auth::routes();
 
 Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
+    Route::get('/settings', [UserController::class, 'setting'], function () {
+        return view('Contents.settings');
+    })->name('settings');
+    Route::get('/settings-edit{id}', [UserController::class, 'settingEdit']);
+    Route::PUT('/settings-edit{id}', [UserController::class, 'settingUpdate']);
+
     // Dashboard
     Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
         return view('Contents.dashboard');
@@ -69,6 +75,12 @@ Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
 });
 
 Route::group(['middleware' => 'auth', 'user-role:admin'], function () {
+    Route::get('/settings', [UserController::class, 'setting'], function () {
+        return view('Contents.settings');
+    })->name('settings');
+    Route::get('/settings-edit/{id}', [UserController::class, 'settingEdit']);
+    Route::PUT('/settings-edit/{id}', [UserController::class, 'settingUpdate']);
+
     // Dashboard
     Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
         return view('Contents.dashboard');

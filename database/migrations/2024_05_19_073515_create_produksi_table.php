@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('produksi', function (Blueprint $table) {
             $table->id();
             $table->string('spk_id')->unique()->nullable();
-            // $table->foreign('spk_id')->references('spk_id')->on('spkmesin');
-            $table->string('nama_mesin');
-            $table->string('cetak');
+            $table->string('id_mesin')->default('none');
+            $table->foreign('id_mesin')->references('id_mesin')->on('mesin');
+            $table->json('cetak');
             $table->string('ukuran_bahan');
             $table->string('set');
             $table->string('keterangan');

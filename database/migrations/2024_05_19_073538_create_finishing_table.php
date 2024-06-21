@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('finishing', function (Blueprint $table) {
             $table->id();
             $table->string('spk_id')->unique()->nullable();
-            $table->string('finishing');
-            $table->string('laminasi');
+            $table->json('finishing');
+            $table->json('laminasi');
             $table->string('potong_jadi');
             $table->string('keterangan');
             $table->timestamps();

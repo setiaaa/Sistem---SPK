@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class SPKController extends Controller
 {
     public function index(){
-        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->get();
+        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->get();
         if ($spk) {
             return response()->json([
                 'spk' => $spk
