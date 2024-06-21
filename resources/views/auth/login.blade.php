@@ -1,5 +1,7 @@
 @extends('Component.layout')
 
+
+
 @section('content')
         <div class=" p-0 main-container vw-100 vh-100">
             <div class="d-flex vw-100 h-100">

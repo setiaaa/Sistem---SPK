@@ -102,4 +102,26 @@ class UserController extends Controller
         return $this->user_id;
     }
 
+    public function setting(){
+        $data['users'] = User::all();
+        return view('Contents.settings', $data);
+    }
+    public function settingEdit($id){
+        $data['users'] = User::find($id);
+        return view('Contents.settings', $data);
+    }
+
+    public function settingUpdate($id, Request $request)
+    {
+        try {
+            $input = $request->all();
+            // dd(var_dump($input));
+            User::find($id)->update($input);
+            session()->flash('successUpdate', 'Data updated successfully.');
+            return redirect('settings')->with('successUpdate', true);
+        } catch (\Exception $e) {
+            session()->flash('error', 'Failed to update data.');
+            return redirect()->back();
+        }
+    }
 }

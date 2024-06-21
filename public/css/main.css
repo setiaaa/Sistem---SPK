@@ -265,7 +265,7 @@
 }
 
 #page-top .sticky-footer {
-    bottom: 0;
+    bottom: 0px;
 }
 
 #page-top .notfound {
@@ -326,14 +326,19 @@
     .notfound .title {
         font-size: 0.8rem
     }
+
+    #page-top .navbar {
+        z-index: 2;
+    }
+
     .notfound .content {
         font-size: 0.5rem;
     }
 
-    * {
+    /* * {
         overflow-y: hidden;
         
-    }
+    } */
 
     #page-top {
         height: 100%;
