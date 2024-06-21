@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Percetakan Bandung</title>
+    <link rel="shortcut icon" href="img/logo_percetakan_bandung.svg" type="image/x-icon">
+    <title>@yield('title') - Sistem SPK Percetakan Bandung</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('template/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -131,13 +131,11 @@
 
     <!-- Page level plugins -->
     <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-    
-    
 
     <!-- Page level custom scripts -->
-    <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+    {{-- <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-    {{-- <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script> --}}
+    <script src="{{asset('js/demo/chart-bar-demo.js')}}"></script> --}}
 </body>
 
 </html>
