@@ -89,14 +89,15 @@ class UserController extends Controller
     public function delete($id, Request $request)
     {
         $user = User::find($id);
+        $namaUser = $user->namalengkap; 
         try {
-            $user->delete($request->all());
-            session()->flash('successDeleted', 'Data deleted successfully.');
-            return redirect('dashboard-user')->with('successDeleted', true);
+            $user->delete();
+            session()->flash('successDeleted', 'Data "'.$namaUser.'" berhasil dihapus.');
         } catch (\Exception $e) {
-            session()->flash('error', 'Failed to delete data.');
-            return redirect()->back();
+            session()->flash('error', 'Data tidak berhasil dihapus karena terhubung dengan SPK yang ada. Hapus SPK terlebih dahulu!');
         }
+        
+        return redirect('dashboard-user');
     }
     public function getID(){
         return $this->user_id;

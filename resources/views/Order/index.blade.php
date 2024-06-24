@@ -78,6 +78,23 @@
                     </thead>
                     </tbody>
                     <tr>
+                        @if (session('successDeleted'))
+                            <div class="alert alert-success">
+                                {{ session('successDeleted') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         <?php $no = 1; ?>
                         @foreach ($order as $odr)
                             <td>{{ $no++ }}</td>
@@ -85,6 +102,7 @@
                             <td>{{ $odr->nama_order }}</td>
                             <td>{{ $odr->deadline }}</td>
                             <td>{{ $odr->lokasi }}</td>
+                            
                             @if (auth()->user()->role != 'staff')
                                 <td>
                                     <form action="{{ url('dashboard-delete-order', $odr->id) }}" method="post">
@@ -94,7 +112,7 @@
                                             data-toggle="modal" data-target="#modal-lg-edit{{ $odr->id }}">
                                             <i class="fa-solid fa-pencil"></i> Edit</a>
                                         <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i>
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fa fa-trash"></i>
                                             Hapus</button>
                                     </form>
                                 </td>

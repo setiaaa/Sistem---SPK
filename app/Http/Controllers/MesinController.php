@@ -96,14 +96,16 @@ class MesinController extends Controller
     public function delete($id, Request $request)
     {
         $mesin = Mesin::find($id);
+        $namaMesin = $mesin->nama_mesin; 
         try {
-            $mesin->delete($request->all());
-            session()->flash('successDeleted', 'Data deleted successfully.');
-            return redirect('dashboard-mesin')->with('successDeleted', true);
+            $mesin->delete();
+            session()->flash('successDeleted', 'Data "'.$namaMesin.'" berhasil dihapus.');
         } catch (\Exception $e) {
-            session()->flash('error', 'Failed to delete data.');
-            return redirect()->back();
+            session()->flash('error', 'Data tidak berhasil dihapus karena terhubung dengan SPK yang ada. Hapus SPK terlebih dahulu!');
         }
+        
+        return redirect('dashboard-mesin');
     }
+
 
 }
