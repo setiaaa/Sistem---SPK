@@ -119,13 +119,15 @@ class OrderController extends Controller
     public function delete($id, Request $request)
     {
         $order = Order::find($id);
+        $namaOrder = $order->nama_order; 
+        
         try {
-            Order::find($id)->delete();
-            session()->flash('success', 'Data deleted successfully.');
-            return redirect('dashboard-order')->with('success', true);
+            $order->delete();
+            session()->flash('successDeleted', 'Data "'.$namaOrder.'" berhasil dihapus.');
         } catch (\Exception $e) {
-            session()->flash('error', 'Failed to delete data.');
-            return redirect()->back();
+            session()->flash('error', 'Data tidak berhasil dihapus karena terhubung dengan SPK yang ada. Hapus SPK terlebih dahulu!');
         }
+        
+        return redirect('dashboard-order');
     }
 }
