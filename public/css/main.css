@@ -68,6 +68,7 @@
     background-color: var(--primary-700);
 }
 
+
 #page-top {
     .btn.btn-primary {
         text-align: center;
@@ -82,6 +83,17 @@
             fill: var(--background-pure);
         };
     };
+    .back-button {
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        color: var(--foreground-text-soft);
+        align-items: center;
+        gap: 0.5rem;
+        svg {
+            fill: var(--foreground-text-soft);
+        }
+    }
 }
  #page-top {
         .tab-menu-button-container {

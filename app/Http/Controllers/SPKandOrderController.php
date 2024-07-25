@@ -38,18 +38,18 @@ class SPKandOrderController extends Controller
         $donutChartController = new DonutChartController();
         $donutChart = $donutChartController->getData();
         
-        return view('contents.dashboard', [
-            'card' => $card,
-            'SPK' => $spk,
-            'odr' => $orderResult,
-            'msn' => $mesinResult,
-            'barlabels' => $barChart['labels'],
-            'barcount' => $barChart['count'],
-            'donutstatus' => $donutChart['status'],
-            'donutcount' => $donutChart['count'],
-            'donutcolors' => $donutChart['colors'],
-            'donuthovers' => $donutChart['hovers']
-        ]);
+        // return view('contents.dashboard', [
+        //     'card' => $card,
+        //     'SPK' => $spk,
+        //     'odr' => $orderResult,
+        //     'msn' => $mesinResult,
+        //     'barlabels' => $barChart['labels'],
+        //     'barcount' => $barChart['count'],
+        //     'donutstatus' => $donutChart['status'],
+        //     'donutcount' => $donutChart['count'],
+        //     'donutcolors' => $donutChart['colors'],
+        //     'donuthovers' => $donutChart['hovers']
+        // ]);
     }
 
 }

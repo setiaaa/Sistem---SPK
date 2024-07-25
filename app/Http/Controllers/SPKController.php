@@ -9,6 +9,8 @@ use App\Models\SPKNota;
 use App\Models\Produksi;
 use App\Models\Finishing;
 use App\Models\Bahan;
+use App\Models\Order;
+use App\Models\Mesin;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -16,13 +18,106 @@ class SPKController extends Controller
 {
     public function index(){
         $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->get();
+        $odr = Order::all();
+        $msn = Mesin::all();
+
+        $card = DB::table('spk')
+        ->select(
+        DB::raw('status'),
+        DB::raw('COUNT(*) as count')
+        )->whereYear('tanggal', date('Y'))
+        ->OrderBy(
+            DB::raw('CASE 
+                WHEN status = "Todo" THEN 1
+                WHEN status = "Running" THEN 2
+                WHEN Status = "Done" THEN 3
+                END')
+        )->groupBy('status')->get();
+
+        $barChart = 
+        DB::table('spk')
+        ->selectRaw('MONTHNAME(tanggal) AS month, COUNT(*) AS count')
+        ->groupBy('month')
+        ->orderBy(
+            DB::raw('CASE 
+                WHEN month = "January" THEN 1
+                WHEN month = "February" THEN 2
+                WHEN month = "March" THEN 3
+                When month = "April" THEN 4
+                WHEN month = "May" THEN 5
+                WHEN month = "June" THEN 6
+                WHEN month = "July" THEN 7
+                WHEN month = "August" THEN 8
+                WHEN month = "September" THEN 9
+                WHEN month = "October" THEN 10
+                WHEN month = "November" THEN 11
+                WHEN month = "December" THEN 12
+                END'))->get();
+        $barLabels = $barChart->pluck('month');
+        $barCount = $barChart->pluck('count');
+        
+        $donutChart = DB::table('spk')
+                ->select(
+                DB::raw('status'),
+                DB::raw('COUNT(*) as count')
+                )
+                ->whereYear('tanggal', date('Y'))
+                // ->whereMonth('tanggal', date('m'))
+                ->OrderBy(
+                    DB::raw('CASE 
+                        WHEN status = "Todo" THEN 1
+                        WHEN status = "Running" THEN 2
+                        WHEN Status = "Done" THEN 3
+                        END')
+                )->groupBy('status')
+                ->get();
+        $status = $donutChart->pluck('status');
+        $count = $donutChart->pluck('count');
+        $colors = ['#FFD623', '#3AC441', '#5889F4'];
+        $hovers = ['#B79211', '#1D8D36', '#2C4DAF'];
+
+        // dd($card);
+
         if ($spk) {
-            return response()->json([
-                'spk' => $spk
+            return view('contents.dashboard', [
+                'card' => $card,
+                'SPK' => $spk,
+                'odr' => $odr,
+                'msn' => $msn,
+                'barlabels' => $barLabels,
+                'barcount' => $barCount,
+                'donutstatus' => $status,
+                'donutcount' => $count,
+                'donutcolors' => $colors,
+                'donuthovers' => $hovers,
             ]);
         } else {
             return response()->json(['message' => 'SPK tidak ditemukan'], 404);
         }
+    }
+
+    public function index2(){
+        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->get();
+        $odr = Order::all();
+        $msn = Mesin::all();
+        if ($spk) {
+            return view('spk.index', [
+                'SPK' => $spk,
+                'odr' => $odr,
+                'msn' => $msn,
+            ]);
+        } else {
+            return response()->json(['message' => 'SPK tidak ditemukan'], 404);
+        }
+    }
+
+    public function print($spk_id) {
+        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')
+        ->get();
+        return view('Utilities.print' , [
+            'spk' => $spk,
+            'spk_id' => $spk_id
+        ]);
     }
 
     public function storeSPKNota(Request $request){
@@ -35,7 +130,7 @@ class SPKController extends Controller
             session()->flash('success', 'Data added successfully.');
             return redirect()->route('dashboard')->with('success', 'Data berhasil disimpan');  
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
             session()->flash('error', 'Failed to add data.');
             return redirect()->back();
         }
@@ -98,8 +193,7 @@ class SPKController extends Controller
 
             session()->flash('success', 'Data added successfully.');
             return redirect()->route('dashboard')->with('success', 'Data berhasil disimpan');    
-        } catch (Exception $e) {
-            console.log($e);
+        } catch (\Exception $e) {
             session()->flash('error', 'Failed to add data.');
             return redirect()->back();
         }
@@ -189,9 +283,8 @@ class SPKController extends Controller
             }
             session()->flash('successUpdate', 'Data updated successfully.');
             return redirect('dashboard')->with('successUpdate', true);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             session()->flash('error', 'Failed to update data.', $e);
-            document.write($e);
             return redirect()->back();
         }
     }

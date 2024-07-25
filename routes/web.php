@@ -33,6 +33,8 @@ Route::post('/login', function () {
     return view('login');
 })->name('login');
 
+
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
@@ -42,16 +44,21 @@ Route::group(['middleware' => 'auth', 'user-role:superadmin'], function () {
     Route::get('/settings-edit{id}', [UserController::class, 'settingEdit']);
     Route::PUT('/settings-edit{id}', [UserController::class, 'settingUpdate']);
 
-    // Dashboard
-    Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
-        return view('Contents.dashboard');
+    route::get('/dashboard', [SPKController::class, 'index'], function () {
+        return view('Contents.viewcontoh');
     })->name('dashboard');
+    // Dashboard
+    // Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
+    //     return view('Contents.dashboard');
+    // })->name('dashboard');
+
+    route::get('/dashboard-spk', [SPKController::class, 'index2'])->name('dashboard-spk');
     Route::post('/dashboard-tambah-spk-mesin', [SPKController::class, 'storeSPKMesin']);
     Route::post('/dashboard-tambah-spk-nota', [SPKController::class, 'storeSPKNota']);
     Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
     Route::PUT('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
     Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
-
+    Route::get('/print/{id}', [SPKController::Class, 'print']);
     // Menu Order
     Route::get('/dashboard-order', [OrderController::class, 'index']);
     Route::post('/dashboard-tambah-order', [OrderController::class, 'store']);
@@ -82,13 +89,13 @@ Route::group(['middleware' => 'auth', 'user-role:admin'], function () {
     Route::PUT('/settings-edit/{id}', [UserController::class, 'settingUpdate']);
 
     // Dashboard
-    Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
-        return view('Contents.dashboard');
-    })->name('dashboard');
-    Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
-    Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
-    Route::PUT('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
-    Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
+    // Route::get('/dashboard', [SPKandOrderController::class, 'index'], function() {
+    //     return view('Contents.dashboard');
+    // })->name('dashboard');
+    // Route::post('/dashboard-tambah-spk', [SPKController::class, 'store']);
+    // Route::get('/dashboard-edit-spk/{id}', [SPKController::class, 'edit']);
+    // Route::PUT('/dashboard-edit-spk/{id}', [SPKController::class, 'update']);
+    // Route::delete('/dashboard-delete-spk/{id}',[SPKController::class, 'delete']);
 
     // Menu Order
     Route::get('/dashboard-order', [OrderController::class, 'index']);

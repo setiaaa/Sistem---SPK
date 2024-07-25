@@ -99,10 +99,7 @@ class UserController extends Controller
         
         return redirect('dashboard-user');
     }
-    public function getID(){
-        return $this->user_id;
-    }
-
+    
     public function setting(){
         $data['users'] = User::all();
         return view('Contents.settings', $data);
