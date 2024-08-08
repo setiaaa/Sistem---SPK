@@ -6,6 +6,24 @@
 
 <div class="card shadow mb-4 rounded-4 mt-3">
         <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <form method="GET" action="/dashboard-spk" class="d-flex align-items-center">
+                    <label for="per_page" class="me-2">Show:
+                        <select name="per_page" id="per_page" class="form-select form-select-sm me-2"
+                            onchange="this.form.submit()">
+                            <option value="5"{{ request('per_page') == 5 ? ' selected' : '' }}>5</option>
+                            <option value="10"{{ request('per_page') == 10 ? ' selected' : '' }}>10</option>
+                            <option value="15"{{ request('per_page') == 15 ? ' selected' : '' }}>15 </option>
+                            <option value="20"{{ request('per_page') == 20 ? ' selected' : '' }}>20</option>
+                        </select>
+                        entries</label>
+                </form>
+                <form method="GET" action="/dashboard-spk" class="d-flex align-items-center">
+                    <input type="text" name="search" class="form-control form-control-sm me-2"
+                        placeholder="Cari SPK..." value="{{ request('search') }}">
+                    <button class="btn btn-primary btn-sm" type="submit">Cari</button>
+                </form>
+            </div>
             <div class="table-responsive">
                 <div class="d-flex align-items-center justify-content-between mt-2 mb-3">
                     <a class="back-button" 
@@ -22,15 +40,48 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>SPK ID</th>
-                            <th>Order ID</th>
-                            <th>Nama Order</th>
-                            <th>Status</th>
-                            <th>Tenggat Waktu</th>
+                            <th>
+                                <a href="{{ '/dashboard-spk' }}?sort=spk_id&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    SPK ID
+                                    @if (request('sort') == 'spk_id')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ '/dashboard-spk' }}?sort=order_id&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Order ID
+                                    @if (request('sort') == 'order_id')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ '/dashboard-spk' }}?sort=nama_order&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Nama Order
+                                    @if (request('sort') == 'nama_order')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ '/dashboard-spk' }}?sort=status&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Status
+                                    @if (request('sort') == 'status')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ '/dashboard-spk' }}?sort=deadline_produksi&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}&per_page={{ request('per_page') }}&search={{ request('search') }}">
+                                    Tenggat Waktu
+                                    @if (request('sort') == 'deadline_produksi')
+                                        <i class="fa fa-sort-{{ request('direction') == 'asc' ? 'up' : 'down' }}"></i>
+                                    @endif
+                                </a>
+                            </th>
                             <th>Terakhir Diubah</th>
-                            @if (auth()->user()->role != 'staff')
-                                <th>Aksi</th>
-                            @endif
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     </tbody>
@@ -44,8 +95,8 @@
                             <td>{{ $spkview->status }}</td>
                             <td>{{ $spkview->deadline_produksi }}</td>
                             <td>{{ $spkview->user->namalengkap }}</td>
-                            @if (auth()->user()->role != 'staff')
-                                <td>
+                            <td>
+                                @if (auth()->user()->role != 'staff')
                                     <form action="{{ url('dashboard-delete-spk', $spkview->spk_id) }}" method="post"
                                         style="width:fit-content">
                                         {{ csrf_field() }}
@@ -58,8 +109,12 @@
                                             onclick="return confirm('Are you sure?')">
                                             {!! file_get_contents('icons/trash.svg') !!} Hapus</button>
                                     </form>
-                                </td>
-                            @endif
+                                @endif
+                                <a class="btn btn-success btn-sm" href="{{ url('print' , $spkview->spk_id) }}">
+                                      {!! file_get_contents('icons/printer.svg') !!}
+                                      Print
+                                </a>
+                            </td>
                     </tr>
                     <!-- Modal Edit -->
                     <div class="modal fade" id="modal-md-edit{{ $spkview->spk_id }}">
@@ -487,8 +542,10 @@
                         </div>
                         @endforeach
                 </table>
+                <div>
+                    {{ $SPK->appends(request()->query())->links('pagination::bootstrap-5') }}
+                </div>
             </div>
-
         </div>
     </div>
 

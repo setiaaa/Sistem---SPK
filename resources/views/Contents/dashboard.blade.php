@@ -42,9 +42,8 @@
                         <th>Status</th>
                         <th>Tenggat Waktu</th>
                         <th>Terakhir Diubah</th>
-                        @if (auth()->user()->role != 'staff')
                         <th>Aksi</th>
-                        @endif
+                        
                     </tr>
                 </thead>
                 </tbody>
@@ -58,8 +57,8 @@
                     <td>{{ $spkview->status }}</td>
                     <td>{{ $spkview->deadline_produksi }}</td>
                     <td>{{ $spkview->user->namalengkap }}</td>
-                    @if (auth()->user()->role != 'staff')
                     <td>
+                        @if (auth()->user()->role != 'staff')
                         <form action="{{ url('dashboard-delete-spk', $spkview->spk_id) }}" method="post" style="width:fit-content">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
