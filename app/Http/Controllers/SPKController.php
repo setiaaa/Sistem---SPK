@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class SPKController extends Controller
 {
     public function index(){
-        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->get();
+        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->take(5)->get();
         $odr = Order::all();
         $msn = Mesin::all();
 
@@ -96,20 +96,56 @@ class SPKController extends Controller
         }
     }
 
-    public function index2(){
-        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')->get();
+    public function index2(Request $request){
+        // Mendapatkan parameter sorting, arah sorting, dan jumlah entri per halaman
+        $sort = $request->input('sort', 'tanggal'); // Default sort berdasarkan tanggal
+        $direction = $request->input('direction', 'desc'); // Default arah sort descending
+        $perPage = $request->input('per_page', 5);
+
+        // Query dasar untuk model SPK dengan join ke tabel terkait
+        $query = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan', 'spkNota', 'order', 'user'])
+                    ->leftJoin('orders', 'spk.order_id', '=', 'orders.order_id')
+                    ->leftJoin('users', 'spk.user_id', '=', 'users.id');
+
+        // Menambahkan kondisi pencarian jika ada input search
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('spk.spk_id', 'LIKE', "%{$search}%")
+                ->orWhere('spk.order_id', 'LIKE', "%{$search}%")
+                ->orWhere('orders.nama_order', 'LIKE', "%{$search}%")
+                ->orWhere('spk.status', 'LIKE', "%{$search}%")
+                ->orWhere('users.namalengkap', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Mengatur sorting berdasarkan kolom dari tabel yang di-join
+        if ($sort == 'nama_order') {
+            $query->orderBy('orders.nama_order', $direction);
+        } elseif ($sort == 'deadline_produksi') {
+            $query->orderBy('spk.deadline_produksi', $direction);
+        } else {
+            $query->orderBy('spk.' . $sort, $direction);
+        }
+
+        // Menjalankan query dengan paginasi
+        $spk = $query->paginate($perPage, ['spk.*']); // Mengambil semua kolom dari tabel SPK
+
+        // Mengambil semua data Order dan Mesin
         $odr = Order::all();
         $msn = Mesin::all();
-        if ($spk) {
-            return view('spk.index', [
-                'SPK' => $spk,
-                'odr' => $odr,
-                'msn' => $msn,
-            ]);
-        } else {
-            return response()->json(['message' => 'SPK tidak ditemukan'], 404);
-        }
+
+        // Mengirimkan data ke view
+        return view('spk.index', [
+            'SPK' => $spk,
+            'sort' => $sort,
+            'direction' => $direction,
+            'per_page' => $perPage,
+            'odr' => $odr,
+            'msn' => $msn,
+        ]);
     }
+
 
     public function print($spk_id) {
         $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')
