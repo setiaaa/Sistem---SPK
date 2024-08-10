@@ -238,7 +238,7 @@ class SPKController extends Controller
     public function edit($spk_id)
     {
         // Cari SPK berdasarkan spk_id
-        $spk = SPK::find($spk_id);
+        $spkview = SPK::with(['spkMesin.bahan', 'spkMesin.produksi'])->find($spk_id);
 
         return view('content.user.dashboard-edit-spk', $spk);
     }
