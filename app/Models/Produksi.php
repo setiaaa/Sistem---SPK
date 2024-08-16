@@ -31,4 +31,8 @@ class Produksi extends Model
     function SpkMesin() {
         return $this->belongsTo(SPKMesin::class, 'spk_id', 'spk_id');
     }
+    
+    public function mesin(){
+        return $this->hasOne(Mesin::class, 'id_mesin', 'id_mesin');
+    }
 }
