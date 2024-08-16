@@ -201,7 +201,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
-                                        <input type="text" class="form-control" placeholder="Keterangan" name="keterangan" value="{{ $spkview->spkMesin->produksi->keterangan }}">
+                                        <input type="text" class="form-control" placeholder="Keterangan" name="keterangan1" value="{{ $spkview->spkMesin->produksi->keterangan }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Jumlah Cetak</label>
@@ -232,11 +232,11 @@
                                             </div>
                                             <div class="button col p-0">
                                                 <input type="checkbox" id="embos" name="finishing[]" value="Embos" {{ str_contains($spkview->spkMesin->finishing->finishing, 'Embos') ? 'checked' : '' }}>
-                                                <label class="checkbox" for="embos">Embos</label>
+                                                <label class="btn" for="embos">Embos</label>
                                             </div>
                                             <div class="button col p-0">
                                                 <input type="checkbox" id="pond" name="finishing[]" value="Pond" {{ str_contains($spkview->spkMesin->finishing->finishing, 'Pond') ? 'checked' : '' }}>
-                                                <label class="checkbox" for="pond">Pond</label>
+                                                <label class="btn" for="pond">Pond</label>
                                             </div>
                                         </div>
                                     </div>
@@ -275,7 +275,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
-                                        <input type="text" class="form-control" placeholder="Keterangan" name="keterangan" value="{{ $spkview->spkMesin->finishing->keterangan }}">
+                                        <input type="text" class="form-control" placeholder="Keterangan" name="keterangan2" value="{{ $spkview->spkMesin->finishing->keterangan }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Nama Bahan</label>
@@ -285,27 +285,27 @@
                                         <label>Ukuran Plano</label>
                                         <div class="radio-button-container d-flex justify-content-between row">
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano1" name="ukuran_plano" value="61x86" required {{ $spkview->spkMesin->bahan->ukuran_plano == '61x86' }}>
+                                                <input type="radio" id="ukuran_plano1" name="ukuran_plano" value="61x86" required {{ $spkview->spkMesin->bahan->ukuran_plano == '61x86' ? 'checked' : ''}}>
                                                 <label class="btn" for="ukuran_plano1">61x86</label>
                                             </div>
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano2" name="ukuran_plano" value="61x92" required {{ $spkview->spkMesin->bahan->ukuran_plano == '61x92' }}>
+                                                <input type="radio" id="ukuran_plano2" name="ukuran_plano" value="61x92" required {{ $spkview->spkMesin->bahan->ukuran_plano == '61x92' ? 'checked' : ''}}>
                                                 <label class="btn" for="ukuran_plano2">61x92</label>
                                             </div>
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano3" name="ukuran_plano" value="65x90" required {{ $spkview->spkMesin->bahan->ukuran_plano == '65x90' }}>
+                                                <input type="radio" id="ukuran_plano3" name="ukuran_plano" value="65x90" required {{ $spkview->spkMesin->bahan->ukuran_plano == '65x90' ? 'checked' : '' }}>
                                                 <label class="btn" for="ukuran_plano3">65x90</label>
                                             </div>
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano4" name="ukuran_plano" value="65x100" required {{ $spkview->spkMesin->bahan->ukuran_plano == '65x100' }}>
+                                                <input type="radio" id="ukuran_plano4" name="ukuran_plano" value="65x100" required {{ $spkview->spkMesin->bahan->ukuran_plano == '65x100' ? 'checked' : '' }}>
                                                 <label class="btn" for="ukuran_plano4">65x100</label>
                                             </div>
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano5" name="ukuran_plano" value="79x109" required {{ $spkview->spkMesin->bahan->ukuran_plano == '79x109' }}>
+                                                <input type="radio" id="ukuran_plano5" name="ukuran_plano" value="79x109" required {{ $spkview->spkMesin->bahan->ukuran_plano == '79x109' ? 'checked' : '' }}>
                                                 <label class="btn" for="ukuran_plano5">79x109</label>
                                             </div>
                                             <div class="button col p-0">
-                                                <input type="radio" id="ukuran_plano6" name="ukuran_plano" value="90x120" required {{ $spkview->spkMesin->bahan->ukuran_plano == '90x120' }}>
+                                                <input type="radio" id="ukuran_plano6" name="ukuran_plano" value="90x120" required {{ $spkview->spkMesin->bahan->ukuran_plano == '90x120' ? 'checked' : '' }}>
                                                 <label class="btn" for="ukuran_plano6">90x120</label>
                                             </div>
                                         </div>
@@ -533,7 +533,7 @@
                         </div>
                         <div class="form-group">
                             <label>Keterangan</label>
-                            <input type="text" class="form-control" placeholder="Keterangan" name="keterangan" required>
+                            <input type="text" class="form-control" placeholder="Keterangan1" name="keterangan" required>
                         </div>
                         <div class="row form-group">
                             <div class="col">
@@ -609,7 +609,7 @@
                         </div>
                         <div class="form-group">
                             <label>Keterangan</label>
-                            <input type="text" class="form-control" placeholder="Keterangan" name="keterangan" required>
+                            <input type="text" class="form-control" placeholder="Keterangan2" name="keterangan" required>
                         </div>
                         <div class="form-group">
                             <label>Nama Bahan</label>

@@ -148,13 +148,29 @@ class SPKController extends Controller
 
 
     public function print($spk_id) {
-        $spk = SPK::with(['spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan','spkNota', 'order', 'user'])->orderBy('tanggal', 'desc')
-        ->get();
-        return view('Utilities.print' , [
+        // Ambil data SPK dengan relasi
+        $spk = SPK::with(['spkMesin', 'spkMesin.produksi', 'spkMesin.finishing', 'spkMesin.bahan', 'spkNota', 'order', 'user', 'spkMesin.produksi.mesin'])
+            ->where('spk_id', $spk_id)
+            ->first();
+    
+        if (!$spk) {
+            return redirect()->route('spk.index')->with('error', 'SPK tidak ditemukan');
+        }
+    
+        // Tentukan jenis printout berdasarkan keberadaan relasi
+        $printType = null;
+        if ($spk->spkMesin && $spk->spkMesin->count() > 0) {
+            $printType = 'mesin';
+        } elseif ($spk->spkNota && $spk->spkNota->count() > 0) {
+            $printType = 'nota';
+        }
+
+        return view('Utilities.print', [
             'spk' => $spk,
-            'spk_id' => $spk_id
+            'printType' => $printType
         ]);
     }
+    
 
     public function storeSPKNota(Request $request){
         $input = $request->all();
@@ -350,15 +366,15 @@ class SPKController extends Controller
         }
     }
 
-    protected function generateMesinId()
+    protected function generateSPKId()
     {
         $lastSPK = SPK::latest('spk_id')->first();
         if (!$lastSPK) {
-            return 'SPK-001'; // If no previous 'mesin' exists, start with KRW-001
+            return 'SPK-0001'; // If no previous 'mesin' exists, start with KRW-001
         }
         $lastId = intval(substr($lastSPK->spk_id, 4)); // Extract the numeric portion of the last ID
         $newId = $lastId + 1;
-        $paddedNewId = str_pad($newId, 3, '0', STR_PAD_LEFT); // Pad the new ID with leading zeros if necessary
+        $paddedNewId = str_pad($newId, 4, '0', STR_PAD_LEFT); // Pad the new ID with leading zeros if necessary
         $generatedId = 'SPK-' . $paddedNewId;
 
         return $generatedId;
